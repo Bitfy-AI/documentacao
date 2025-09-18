@@ -122,8 +122,8 @@ Exemplos:
 ### Descrição
 Componentes que fazem parte da execução dos workflows.
 
-### 2.1 Steps (8-Step Pattern)
-**Descrição:** Os 8 passos obrigatórios do padrão ZION
+### 2.1 Steps (Octógono Zion)
+**Descrição:** Os 8 passos obrigatórios do Octógono Zion
 
 **Padrão FIXO:**
 ```yaml
@@ -537,7 +537,7 @@ graph LR
 Nível Bronze (Básico):
   - 80% de conformidade nas categorias 1-2
   - Technical IDs corretos
-  - 8-Steps implementados
+  - Octógono implementado
 
 Nível Silver (Intermediário):
   - 90% de conformidade nas categorias 1-4
@@ -578,4 +578,4 @@ Nível Platinum (Excelência):
 
 ---
 
-*Este documento é parte do Protocolo de Agentes No-Code Zion (PANZ) v1.0.0*
+*Este documento é parte do Zion Protocol v1.0.0*

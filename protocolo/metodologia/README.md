@@ -1,21 +1,21 @@
-# 📐 Padrão ZION 8-Step para n8n
+# 📐 Octógono Zion para n8n
 
-> **Versão:** 3.0.0
+> **Versão:** 1.0.0
 > **Stack:** n8n + PostgreSQL + Redis + LLMs
 > **Última Atualização:** Dezembro 2024
-> **Protocolo:** PANZ (Protocolo de Agentes No-Code Zion)
+> **Protocolo:** Zion Protocol
 
 
 ---
 
 ## 🎯 Visão Geral
 
-Sistema de padronização para desenvolvimento de workflows n8n seguindo o Protocolo ZION, garantindo consistência, rastreabilidade e manutenibilidade em implementações de agentes conversacionais.
+Sistema de padronização para desenvolvimento de workflows n8n seguindo o Zion Protocol, garantindo consistência, rastreabilidade e manutenibilidade em implementações de agentes conversacionais.
 
 ### Princípios Fundamentais
 
 * **Factory Pattern**: Separação clara entre adaptação (fábrica) e execução (core)
-* **8-Step Pattern**: Todo workflow de execução segue 8 etapas obrigatórias com cores padronizadas
+* **Octógono Zion**: Todo workflow de execução segue 8 etapas obrigatórias com cores padronizadas
 * **Domain Isolation**: Responsabilidades isoladas por domínio de negócio
 * **Observability First**: Rastreamento e monitoramento nativos
 
@@ -26,7 +26,7 @@ Sistema de padronização para desenvolvimento de workflows n8n seguindo o Proto
 
 ### Modelo de Camadas (Organização de Workflows)
 
-```mermaidjs
+```mermaid
 graph TB
     classDef l1 fill:#3498DB,color:#fff
     classDef l2 fill:#9B59B6,color:#fff
@@ -136,11 +136,11 @@ Exemplos:
 
 ---
 
-## 🔄 8-Step Pattern
+## 🔄 Octógono Zion
 
 ### Padrão Obrigatório para Workflows de Execução
 
-```mermaidjs
+```mermaid
 graph LR
     1[1.RECEBE] --> 2[2.RASTREIA]
     2 --> 3[3.VALIDA]
@@ -331,7 +331,7 @@ Formato padrão:
 
 - [ ] Nome segue padrão de nomenclatura
 - [ ] Está na pasta correta (camada)
-- [ ] Implementa 7-Step Pattern
+- [ ] Implementa Octógono Zion
 - [ ] Step 2: Rastreamento ANTES de validar
 - [ ] Step 7: Output padronizado
 - [ ] Tem error handling configurado
@@ -342,7 +342,7 @@ Formato padrão:
 ### Review de Código
 
 - [ ] Nomenclatura correta?
-- [ ] 7 steps presentes e na ordem?
+- [ ] 8 passos do Octógono presentes e na ordem?
 - [ ] Rastreamento no step 2?
 - [ ] Output padronizado no step 7?
 - [ ] Error workflow configurado?
@@ -354,7 +354,7 @@ Formato padrão:
 
 ## 📚 Exemplo de Implementação
 
-### Workflow de Execução com 7 Steps
+### Workflow de Execução com Octógono Zion
 
 ```yaml
 Nome: EXE-L3-PEDIDOS-PROCESSAR-V1

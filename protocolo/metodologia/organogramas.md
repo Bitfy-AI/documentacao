@@ -60,7 +60,7 @@ graph TB
         L3_TITLE["⚙️ EXECUÇÃO"]:::l3
         
         subgraph L3_RESP["Responsabilidades"]
-            L3_R1["• Implementar 7 Steps"]:::resp
+            L3_R1["• Implementar 8 Steps"]:::resp
             L3_R2["• Processar lógica de negócio"]:::resp
             L3_R3["• Orquestrar fluxo"]:::resp
             L3_R4["• Gerar decisões"]:::resp

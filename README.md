@@ -1,4 +1,4 @@
-# Protocolo de Agentes No-Code Zion (PANZ)
+# Zion Protocol
 
 <div align="center">
 
@@ -12,16 +12,16 @@
 
 </div>
 
-## 🎯 O que é o PANZ?
+## 🎯 O que é o Zion Protocol?
 
-O **Protocolo de Agentes No-Code Zion (PANZ)** é um padrão aberto que democratiza o desenvolvimento de chatbots e agentes de IA, combinando:
+O **Zion Protocol** é um padrão aberto que democratiza o desenvolvimento de chatbots e agentes de IA, combinando:
 
 - ✅ **Protocolo Técnico** - Especificações claras de arquitetura e comunicação
-- ✅ **Metodologia Prática** - Framework 7-Step Pattern para garantir qualidade
+- ✅ **Metodologia Prática** - Octógono Zion para garantir qualidade
 - ✅ **Stack Open Source** - Ferramentas gratuitas (n8n, PostgreSQL, Langchain)
 - ✅ **Templates Prontos** - Acelere com workflows pré-construídos e testados
 
-## 🚀 Por que usar o PANZ?
+## 🚀 Por que usar o Zion Protocol?
 
 ### Para Empresas
 - **80% menos custo** que desenvolvimento tradicional
@@ -45,7 +45,7 @@ graph TB
         WC[WebChat]
     end
 
-    subgraph "Protocolo ZION"
+    subgraph "Zion Protocol"
         N[n8n Orchestrator]
         AI[AI Engine]
         DB[(PostgreSQL)]
@@ -65,9 +65,9 @@ graph TB
     N --> CRM & API & ERP
 ```
 
-## 📋 O Padrão 8-Step
+## 📋 O Octógono Zion
 
-Toda implementação PANZ segue 8 passos obrigatórios com cores padronizadas no n8n:
+Toda implementação do Zion Protocol segue os 8 passos obrigatórios do Octógono com cores padronizadas no n8n:
 
 ```
 1️⃣ RECEBE    🟩 → Recebe dados de múltiplas origens
@@ -132,4 +132,4 @@ Para dúvidas, sugestões ou consultoria sobre implementação da Metodologia Zi
 
 ---
 
-**Metodologia Zion** - Transformando empresas através de automação inteligente e acessível.
+**Zion Protocol** - Transformando empresas através de automação inteligente e acessível.

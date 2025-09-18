@@ -1,4 +1,4 @@
-# Protocolo de Agentes No-Code Zion (PANZ)
+# Zion Protocol
 
 > **Versão:** 1.0.0
 > **Status:** Draft
@@ -6,7 +6,7 @@
 
 ## Resumo Executivo
 
-O **Protocolo de Agentes No-Code Zion (PANZ)** é um padrão aberto para desenvolvimento e orquestração de agentes conversacionais inteligentes utilizando ferramentas no-code/low-code. Este protocolo define especificações técnicas, metodologias de implementação e melhores práticas para criar soluções de IA conversacional escaláveis e mantíveis sem necessidade de programação tradicional.
+O **Zion Protocol** é um padrão aberto para desenvolvimento e orquestração de agentes conversacionais inteligentes utilizando ferramentas no-code/low-code. Este protocolo define especificações técnicas, metodologias de implementação e melhores práticas para criar soluções de IA conversacional escaláveis e mantíveis sem necessidade de programação tradicional.
 
 ## 1. Introdução
 
@@ -33,7 +33,7 @@ O PANZ surge para democratizar o acesso a tecnologias de IA conversacional, esta
 Este protocolo abrange:
 - Arquitetura de referência para agentes conversacionais
 - Especificação de interfaces e comunicação
-- Metodologia de implementação (7-Step Pattern)
+- Metodologia de implementação (Octógono Zion)
 - Stack tecnológica recomendada
 - Templates e componentes reutilizáveis
 - Métricas e observabilidade
@@ -42,36 +42,44 @@ Este protocolo abrange:
 
 ### 2.1 Visão Geral
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                        CAMADA DE INTERFACE                   │
-│  WhatsApp │ Telegram │ WebChat │ Discord │ Email │ Voice    │
-└────────────────┬────────────────────────────────────────────┘
-                 │
-┌────────────────▼────────────────────────────────────────────┐
-│                    CAMADA DE NORMALIZAÇÃO                    │
-│         Factory Pattern │ Adaptadores │ Validadores          │
-└────────────────┬────────────────────────────────────────────┘
-                 │
-┌────────────────▼────────────────────────────────────────────┐
-│                    CAMADA DE PROCESSAMENTO                   │
-│              7-Step Pattern │ Roteamento │ Fluxos            │
-└────────────────┬────────────────────────────────────────────┘
-                 │
-┌────────────────▼────────────────────────────────────────────┐
-│                    CAMADA DE INTELIGÊNCIA                    │
-│         LLMs │ NLU │ Contexto │ Memória │ Decisão          │
-└────────────────┬────────────────────────────────────────────┘
-                 │
-┌────────────────▼────────────────────────────────────────────┐
-│                     CAMADA DE INTEGRAÇÃO                     │
-│      APIs │ Databases │ CRMs │ ERPs │ Legacy Systems       │
-└────────────────┬────────────────────────────────────────────┘
-                 │
-┌────────────────▼────────────────────────────────────────────┐
-│                   CAMADA DE OBSERVABILIDADE                  │
-│        Logs │ Métricas │ Traces │ Alertas │ Analytics      │
-└─────────────────────────────────────────────────────────────┘
+```mermaid
+graph TD
+    subgraph Interface["CAMADA DE INTERFACE"]
+        A[WhatsApp<br/>Telegram<br/>WebChat<br/>Discord<br/>Email<br/>Voice]
+    end
+
+    subgraph Normalizacao["CAMADA DE NORMALIZAÇÃO"]
+        B[Factory Pattern<br/>Adaptadores<br/>Validadores]
+    end
+
+    subgraph Processamento["CAMADA DE PROCESSAMENTO"]
+        C[Octógono Zion (8 Steps)<br/>Aplicado em TODOS os Fluxos<br/>Roteamento Inteligente]
+    end
+
+    subgraph Inteligencia["CAMADA DE INTELIGÊNCIA"]
+        D[LLMs<br/>NLU<br/>Contexto<br/>Memória<br/>Decisão]
+    end
+
+    subgraph Integracao["CAMADA DE INTEGRAÇÃO"]
+        E[APIs<br/>Databases<br/>CRMs<br/>ERPs<br/>Legacy Systems]
+    end
+
+    subgraph Observabilidade["CAMADA DE OBSERVABILIDADE"]
+        F[Logs<br/>Métricas<br/>Traces<br/>Alertas<br/>Analytics]
+    end
+
+    %% Fluxo principal
+    A --> B
+    B --> C
+    C --> D
+    D --> C
+    C --> E
+
+    %% Observabilidade monitora todas as camadas
+    B -.-> F
+    C -.-> F
+    D -.-> F
+    E -.-> F
 ```
 
 ### 2.2 Componentes Principais
@@ -102,63 +110,9 @@ Mantém:
 
 ## 3. Especificação Técnica
 
-### 3.1 Formato de Mensagens
+### 3.1 O Octógono Zion
 
-#### Mensagem de Entrada (Input)
-```json
-{
-  "message_id": "uuid-v4",
-  "timestamp": "2024-01-01T00:00:00Z",
-  "channel": "whatsapp|telegram|webchat|...",
-  "user": {
-    "id": "user-unique-id",
-    "name": "User Name",
-    "metadata": {}
-  },
-  "content": {
-    "type": "text|audio|image|document|location",
-    "text": "Message text",
-    "media_url": "https://...",
-    "metadata": {}
-  },
-  "session": {
-    "id": "session-uuid",
-    "context": {},
-    "history": []
-  }
-}
-```
-
-#### Mensagem de Saída (Output)
-```json
-{
-  "message_id": "uuid-v4",
-  "in_reply_to": "original-message-id",
-  "timestamp": "2024-01-01T00:00:00Z",
-  "content": {
-    "type": "text|audio|image|document|buttons|list",
-    "text": "Response text",
-    "media_url": "https://...",
-    "quick_replies": [],
-    "buttons": [],
-    "metadata": {}
-  },
-  "session_update": {
-    "context": {},
-    "next_action": "wait|end|transfer"
-  },
-  "trace": {
-    "execution_id": "uuid-v4",
-    "duration_ms": 1234,
-    "llm_tokens": 567,
-    "quality_score": 0.95
-  }
-}
-```
-
-### 3.2 O Padrão 8-Step
-
-Toda execução de agente DEVE seguir os 8 passos obrigatórios:
+**IMPORTANTE**: O Octógono Zion é aplicado em TODOS os fluxos de processamento, sem exceção. Todo workflow, independente do tipo ou complexidade, DEVE seguir os 8 passos obrigatórios:
 
 #### Step 1: RECEBE
 - Recebe dados de entrada (Workflow/Webhook/RabbitMQ/Evaluations)
@@ -215,12 +169,20 @@ Toda execução de agente DEVE seguir os 8 passos obrigatórios:
 - Confirma entrega e fecha ciclo
 - **Cor no n8n**: Verde 🟩
 
-### 3.3 Estados do Agente
+### 3.2 Estados do Agente
 
-```
-IDLE ──► RECEIVING ──► PROCESSING ──► RESPONDING ──► IDLE
-            │              │              │
-            └──► ERROR ◄───┴──────────────┘
+```mermaid
+stateDiagram-v2
+    [*] --> IDLE
+    IDLE --> RECEIVING
+    RECEIVING --> PROCESSING
+    PROCESSING --> RESPONDING
+    RESPONDING --> IDLE
+
+    RECEIVING --> ERROR
+    PROCESSING --> ERROR
+    RESPONDING --> ERROR
+    ERROR --> IDLE
 ```
 
 ## 4. Stack Tecnológica
@@ -280,7 +242,8 @@ projeto-zion/
    - Importar templates base
 
 2. **Desenvolvimento**
-   - Criar workflows seguindo 7-Step
+   - Criar workflows implementando SEMPRE o Octógono Zion completo
+   - Todos os fluxos devem ter os 8 steps, independente da complexidade
    - Implementar integrações necessárias
    - Configurar prompts e regras
 
@@ -331,7 +294,7 @@ projeto-zion/
 
 ### 8.1 Níveis de Conformidade
 
-- **Bronze**: Implementação básica do 7-Step
+- **Bronze**: Implementação do Octógono em TODOS os fluxos
 - **Silver**: + Observabilidade completa
 - **Gold**: + Segurança e compliance
 - **Platinum**: + Contribuição ao protocolo
@@ -387,8 +350,8 @@ Disponíveis no repositório:
 **Q: Posso usar outras ferramentas além do n8n?**
 A: O protocolo é otimizado para n8n, mas os conceitos podem ser adaptados.
 
-**Q: É necessário usar todos os 7 steps?**
-A: Sim, para conformidade com o protocolo todos os steps são obrigatórios.
+**Q: É necessário usar todos os 8 passos do Octógono?**
+A: Sim, TODOS os fluxos devem implementar os 8 passos do Octógono, sem exceção. Esta é a base fundamental do protocolo.
 
 **Q: Posso usar em produção?**
 A: Sim, o protocolo está pronto para ambientes produtivos.

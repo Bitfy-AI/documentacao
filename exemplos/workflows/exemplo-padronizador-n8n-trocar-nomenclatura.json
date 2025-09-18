@@ -1,0 +1,3035 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"company\": {\n    \"collection\": \"companies\",\n    \"key\": null,\n    \"identifier\": \"{{ $json.locationId }}\",\n    \"fields\": {}\n  },\n  \"inbox\": {\n    \"collection\": \"inboxes\",\n    \"key\": null,\n    \"identifier\": \"\",\n    \"fields\": {\n      \"channel\": \"{{ $json.messageType }}\"\n    }\n  },\n  \"conversation\": {\n    \"collection\": \"conversations\",\n    \"key\": null,\n    \"identifier\": \"{{ $json.conversationId }}\",\n    \"fields\": {}\n  },\n  \"message\": {\n    \"collection\": \"messages\",\n    \"key\": null,\n    \"identifier\": \"{{ $json.messageId }}\",\n    \"fields\": {\n      \"content\": \"{{ $json.body }}\",\n      \"content_type\": \"{{ $json.contentType }}\",\n      \"senderType\": \"{{ $json.direction }}\"\n    }\n  },\n  \"contact\": {\n    \"collection\": \"users\",\n    \"key\": null,\n    \"identifier\": \"{{ $json.contactId }}\",\n    \"fields\": {\n      \"phone\": \"\"\n    }\n  },\n  \"connection\": {\n    \"key\": null,\n    \"collection\": \"connections\",\n    \"identifier\": \"\",\n    \"fields\": {\n      \"name\": \"ghl\",\n      \"event\": \"{{ $json.type }}\"\n    }\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1760,
+        1504
+      ],
+      "id": "0a82d55c-293e-4351-b3da-d258ae299b60",
+      "name": "Slack",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"service\": \"{{ $('REC:Body da Conexão').item.json.service }}\",\n  \"event\": \"{{ $('ROT:Qual conexão padronizada').item.json.eventId }}\",\n  \"connection\": \"{{ $('REC:Body da Conexão').item.json.service }}\",\n  \"company\": {\n    \"collection\": \"companies_ghl\",\n    \"id\": null,\n    \"extid\": \"{{ $('REC:Body da Conexão').item.json.body.locationId }}\",\n    \"fields\": {}\n  },\n  \"inbox\": {\n    \"collection\": \"inboxes\",\n    \"id\": null,\n    \"extid\": null,\n    \"fields\": {\n      \"channel\": \"{{ $('ROT:Qual conexão padronizada').item.json.messageType }}\"\n    }\n  },\n  \"conversation\": {\n    \"collection\": \"conversations\",\n    \"id\": null,\n    \"extid\": \"{{ $('REC:Body da Conexão').item.json.body.conversationId }}\",\n    \"fields\": {\n      \"user_id\": null\n    }\n  },\n  \"message\": {\n    \"collection\": \"messages\",\n    \"id\": null,\n    \"extid\": \"{{ $('REC:Body da Conexão').item.json.body.messageId }}\",\n    \"fields\": {\n      \"content\": {{ $('ROT:Qual conexão padronizada').item.json.body.toJsonString() }},\n      \"content_type\": \"{{ $('ROT:Qual conexão padronizada').item.json.contentType }}\",\n      \"senderType\": \"{{ $('ROT:Qual conexão padronizada').item.json.direction }}\"\n    }\n  },\n  \"contact\": {\n    \"collection\": \"contacts\",\n    \"collection_external\": \"contacts_external\",\n    \"id\": null,\n    \"extid\": \"{{ $('REC:Body da Conexão').item.json.body.contactId }}\",\n    \"fields\": {\n      \"name\": \"{{ $json.contact.fullNameLowerCase }}\",\n      \"phone\": \"{{ $json.contact.phone }}\"\n    }\n  },\n  \"connections\": {\n    \"id\": null,\n    \"collection\": \"connections\",\n    \"extid\": \"\",\n    \"fields\": {\n      \"name\": \"ghl\",\n      \"event\": \"{{ $('ROT:Qual conexão padronizada').item.json.type }}\"\n    }\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1984,
+        1312
+      ],
+      "id": "d8016f77-4092-4afb-ab9a-7e9834b0af39",
+      "name": "GoHighLevel"
+    },
+    {
+      "parameters": {
+        "errorMessage": "=Integração não identificada ou não existente, acesse o switch connection e crie a integração para o {{ $('REC:Body da Conexão').first().json.connection }}"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        864,
+        2080
+      ],
+      "id": "ce2e9eff-cfb7-42bf-9b42-b5634912bbe4",
+      "name": "Integration Null",
+      "notesInFlow": true,
+      "notes": "Conexão inexistente"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2432,
+        1168
+      ],
+      "id": "0aea8590-11c7-4114-8f49-d3044ae5cb63",
+      "name": "Juntar",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "url": "=https://services.leadconnectorhq.com/contacts/{{ $('REC:Body da Conexão').item.json.body.contactId }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer "
+            },
+            {
+              "name": "Version",
+              "value": "2021-07-28"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1760,
+        1312
+      ],
+      "id": "0e2acdd3-234b-4499-9c1b-cbb5ffca3d4d",
+      "name": "Nome e Telefone GHL Contato"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "user.table",
+              "value": "directus_users",
+              "type": "string"
+            },
+            {
+              "id": "4f27ede6-a8bd-43b6-b5e4-2b25849fea00",
+              "name": "user.collumn.external_identifier",
+              "value": "={{ $('REC:Body da Conexão').item.json.lead.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "d88a2605-e7a1-4187-be71-f1b5dc13f8d8",
+              "name": "user.collumn.email",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        864,
+        1120
+      ],
+      "id": "4df7f7fe-ccf1-47a1-8f0f-cd2870113013",
+      "name": "Users Datacrazy"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "inbox.table",
+              "value": "directus_users",
+              "type": "string"
+            },
+            {
+              "id": "0639bad4-1ad3-478f-b6bb-40713a1b3ea9",
+              "name": "inbox.ids.primary",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "4f27ede6-a8bd-43b6-b5e4-2b25849fea00",
+              "name": "inbox.ids.external",
+              "value": "={{ $('REC:Body da Conexão').item.json.lead.phone }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1536,
+        1120
+      ],
+      "id": "1b9e9d0c-ed1d-43de-b2d2-8ec901c8906b",
+      "name": "Inbox Datacrazy"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "conversation.table",
+              "value": "directus_users",
+              "type": "string"
+            },
+            {
+              "id": "0639bad4-1ad3-478f-b6bb-40713a1b3ea9",
+              "name": "conversation.ids.primary",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "4f27ede6-a8bd-43b6-b5e4-2b25849fea00",
+              "name": "conversation.ids.external",
+              "value": "={{ $('REC:Body da Conexão').item.json.lead.phone }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1760,
+        1120
+      ],
+      "id": "c78c3cfc-d50d-4c74-aebf-c30515a4cf39",
+      "name": "Conversation Datacrazy"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "message.table",
+              "value": "directus_users",
+              "type": "string"
+            },
+            {
+              "id": "0639bad4-1ad3-478f-b6bb-40713a1b3ea9",
+              "name": "message.ids.primary",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "4f27ede6-a8bd-43b6-b5e4-2b25849fea00",
+              "name": "message.ids.external",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "27e8af26-bf5b-4682-9b50-0c37cf05ec67",
+              "name": "message.table",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1984,
+        1120
+      ],
+      "id": "4cc170f5-46fd-46ef-b5fa-29e265123be3",
+      "name": "Message Datatcrazy"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "contact.table",
+              "value": "directus_users",
+              "type": "string"
+            },
+            {
+              "id": "0639bad4-1ad3-478f-b6bb-40713a1b3ea9",
+              "name": "contact.ids.primary",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "4f27ede6-a8bd-43b6-b5e4-2b25849fea00",
+              "name": "contact.ids.external",
+              "value": "={{ $('REC:Body da Conexão').item.json.lead.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "76dcea7d-08b0-4e5b-8b09-2ef06d13b524",
+              "name": "contact.collumn.name",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "7174b85b-047a-4994-8851-713b6e7326af",
+              "name": "contact.collumn.phone",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "cf5662eb-8603-4bcf-a3d9-e78b37e7436f",
+              "name": "contact.collumn.email",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "db3f895d-54e9-49d6-b450-182906206888",
+              "name": "contact.collumn.lid",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1312,
+        1120
+      ],
+      "id": "28c5c353-47f7-4d9f-88b4-ca687a579d77",
+      "name": "Contact Datacrazy"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c65e0d99-8858-4899-b602-499bc4836879",
+              "leftValue": "={{ $json.message.collumn.file.url }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "7a9bf2ed-adac-4bb0-a8b3-d4709b579644",
+              "leftValue": "={{ $json.message.collumn.file.base64 }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3312,
+        1264
+      ],
+      "id": "de217486-2435-4259-acff-b31cfbeefa34",
+      "name": "Modo desenvolvedor ativado"
+    },
+    {
+      "parameters": {
+        "content": "## Entidades\n- **Company**- Empresa no sistema\n  - Users - Usuarios do sistema que podem estar usando o inbox\n  - Contact - Quem recebe a mensagem\n  - Inbox - Canal que envia a mensagem \n    - Conversation - Suporte a sistemas que tem tickets\n       - Message - dados da mensagem",
+        "height": 368,
+        "width": 640
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2384,
+        336
+      ],
+      "typeVersion": 1,
+      "id": "72652cec-da3c-4fb6-829e-b15f2a055219",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "jsCode": "const jsonEmString = JSON.stringify($input.item.json);\nconst jsonLimpo = jsonEmString\n  .replace(/:\\s*\"\"/g, ':null')\n  .replace(/:\\s*undefined/g, ':null');\n\nreturn JSON.parse(jsonLimpo);"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2656,
+        1168
+      ],
+      "id": "bd3d0aeb-c290-4088-be15-e2483b92d8a8",
+      "name": "Seta campos vazios como null"
+    },
+    {
+      "parameters": {
+        "jsCode": "const dadosPadronizados = $input.first().json\nconst entidades = Object.keys(dadosPadronizados)\nconst naoCheckar = [\"execution\", \"features\", \"connection\", \"custom\", \"logs\"]\nconst chavesObrigatorias = [\"id\", \"table\"]\n\n// Validação 1: Verificar campos obrigatórios nas entidades\nfor (const entidade of entidades) {\n  if (!naoCheckar.includes(entidade)) {\n    const objetoEntidade = dadosPadronizados[entidade]\n    \n    if (typeof objetoEntidade === 'object' && objetoEntidade !== null) {\n      for (const chave of chavesObrigatorias) {\n        if (!objetoEntidade.hasOwnProperty(chave) || objetoEntidade[chave] === null || objetoEntidade[chave] === undefined) {\n          throw new Error(`Faltam parametros: Não existe na entidade \"${entidade}\" o parametro obrigatório \"${chave}\". Por favor adicione os parametros: ${chavesObrigatorias.join(\", \")}`)\n        }\n      }\n    } else {\n      throw new Error(`A entidade \"${entidade}\" não é um objeto válido`)\n    }\n  }\n}\n\n// Validação 2 e 3: Verificar content OU files (url/base64)\nif (dadosPadronizados.message && dadosPadronizados.message.collumn) {\n  const collumn = dadosPadronizados.message.collumn\n  const temContent = collumn.content && collumn.content !== ''\n  \n  // Se NÃO tem content, então precisa ter file.url OU file.base64\n  if (!temContent) {\n    if (!collumn.file) {\n      throw new Error('Validação message: Quando não existe content, é obrigatório ter file com url OU base64')\n    }\n    \n    const file = collumn.file\n    const temUrl = file.url && file.url !== ''\n    const temBase64 = file.base64 && file.base64 !== ''\n    \n    if (!temUrl && !temBase64) {\n      throw new Error('Validação message: É necessário ter content preenchido OU file.url OU file.base64')\n    }\n  }\n  // Se tem content, está OK - não precisa validar files\n}\n\n// Se todas as validações passaram, retorna os dados\nreturn dadosPadronizados"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2880,
+        1168
+      ],
+      "id": "6a61bda2-abac-4b1d-b7db-87ef673eae02",
+      "name": "Validações"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "user.table",
+              "value": "directus_users",
+              "type": "string"
+            },
+            {
+              "id": "b5c9f01f-3205-4831-b0f0-98a8355ffd1e",
+              "name": "user.id",
+              "value": "={{ null && \"Id que ira ser presquisado no directus na tabela direcus_users para saber se a pessoa é admin\" }}",
+              "type": "string"
+            },
+            {
+              "id": "d88a2605-e7a1-4187-be71-f1b5dc13f8d8",
+              "name": "user.collumn.email",
+              "value": "={{ null && \"Email que ira ser presquisado no directus na tabela direcus_users para saber se a pessoa é admin\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1088,
+        928
+      ],
+      "id": "bc94e8c7-5251-42e0-9796-0d0ac25b1f05",
+      "name": "Users Chatwoot",
+      "notesInFlow": true,
+      "disabled": true,
+      "notes": "Agentes operadores"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "contact.table",
+              "value": "contacts",
+              "type": "string"
+            },
+            {
+              "id": "0639bad4-1ad3-478f-b6bb-40713a1b3ea9",
+              "name": "contact.id",
+              "value": "={{ $('REC:Body da Conexão').item.json.body.conversation.contact_inbox.contact_id }}",
+              "type": "string"
+            },
+            {
+              "id": "76dcea7d-08b0-4e5b-8b09-2ef06d13b524",
+              "name": "contact.collumn.name",
+              "value": "={{ $('REC:Body da Conexão').item.json.body.conversation.meta.sender.name }}",
+              "type": "string"
+            },
+            {
+              "id": "7174b85b-047a-4994-8851-713b6e7326af",
+              "name": "contact.collumn.phone",
+              "value": "={{ $('REC:Body da Conexão').item.json.body.conversation.meta.sender.identifier }}",
+              "type": "string"
+            },
+            {
+              "id": "cf5662eb-8603-4bcf-a3d9-e78b37e7436f",
+              "name": "contact.collumn.email",
+              "value": "={{ $('REC:Body da Conexão').item.json.body.conversation.meta.sender.email && \"Email do contato que vem do sistema\" }}",
+              "type": "string"
+            },
+            {
+              "id": "db3f895d-54e9-49d6-b450-182906206888",
+              "name": "contact.collumn.lid",
+              "value": "={{ null && \"Lid, id unificado do contato no facebook\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1312,
+        928
+      ],
+      "id": "17b0a99f-a528-4c1b-b7fd-f56d72f2e2a3",
+      "name": "Contact Chatwoot",
+      "notesInFlow": true,
+      "notes": "Quem recebe a mensagem"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "inbox.table",
+              "value": "inboxes",
+              "type": "string"
+            },
+            {
+              "id": "0639bad4-1ad3-478f-b6bb-40713a1b3ea9",
+              "name": "inbox.id",
+              "value": "={{ $('REC:Body da Conexão').item.json.body.conversation.inbox_id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1984,
+        928
+      ],
+      "id": "1af65187-66d0-4a70-8444-886503b654ec",
+      "name": "Inbox Chatwoot",
+      "notesInFlow": true,
+      "notes": "Quem envia a mensagem"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "conversation.table",
+              "value": "conversations",
+              "type": "string"
+            },
+            {
+              "id": "0639bad4-1ad3-478f-b6bb-40713a1b3ea9",
+              "name": "conversation.id",
+              "value": "={{ $('REC:Body da Conexão').item.json.body.conversation.messages[0].conversation_id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1536,
+        928
+      ],
+      "id": "dd6894aa-f863-4d3b-a5a8-7d347a1e0ff7",
+      "name": "Conversation Chatwoot",
+      "notesInFlow": true,
+      "notes": "Para sistemas que possuem tickets"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "message.table",
+              "value": "messages",
+              "type": "string"
+            },
+            {
+              "id": "0639bad4-1ad3-478f-b6bb-40713a1b3ea9",
+              "name": "message.id",
+              "value": "={{ $('REC:Body da Conexão').item.json.body.conversation.messages[0].id }}",
+              "type": "string"
+            },
+            {
+              "id": "26ec4cac-710a-4031-a3b9-88a1ff8924ae",
+              "name": "message.collumn.content",
+              "value": "={{ $('REC:Body da Conexão').item.json.body.content }}",
+              "type": "string"
+            },
+            {
+              "id": "b7415d4e-cd1d-4d84-9cdb-9f398ef72bb5",
+              "name": "message.collumn.fromMe",
+              "value": "={{ \n$if(\n  $('REC:Body da Conexão').item.json.body.message_type == \"outgoing\",\n  true,\n  false\n) }}",
+              "type": "boolean"
+            },
+            {
+              "id": "015f838e-0137-498e-bb14-c2ebee2e5b95",
+              "name": "message.collumn.file.base64",
+              "value": "=",
+              "type": "string"
+            },
+            {
+              "id": "532a069a-4c70-44aa-ac81-3905f2f147db",
+              "name": "message.collumn.file.url",
+              "value": "={{ $('REC:Body da Conexão').item.json.body.conversation.messages[0].attachments[0].data_url || \"Campo com o url do arquivo\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1760,
+        928
+      ],
+      "id": "aa03b99a-a071-4ebf-936f-2b0633254ad2",
+      "name": "Message Chatwoot",
+      "notesInFlow": true,
+      "notes": "Dados da mensagem"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1984,
+        1504
+      ],
+      "id": "4be0bba6-612b-4bdf-80ef-68eb7a5141dc",
+      "name": "Juntar1",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7be46a43-9351-4684-afd5-a254856e3c86",
+              "leftValue": "={{ $json.message.collumn.content }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3088,
+        1168
+      ],
+      "id": "aee070ed-53f5-48f6-972e-627df35036fd",
+      "name": "Valida entidade message"
+    },
+    {
+      "parameters": {
+        "errorMessage": "NV2: Entidade message precisa de texto na propriedade 'content' ou 'file' com alguma mídia preenchidas, mapeie pelo menos uma das duas."
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        3536,
+        1360
+      ],
+      "id": "bd1ec185-5a3c-472f-9916-372ab1cab559",
+      "name": "Valida message"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "50020d7c-903e-4b40-b8bf-4f2925e1e780",
+              "name": "company.table",
+              "value": "companies",
+              "type": "string"
+            },
+            {
+              "id": "99360946-7c0d-43a4-add0-5921558ba200",
+              "name": "company.id",
+              "value": "={{ $('REC:Body da Conexão').first().json.company }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1088,
+        1696
+      ],
+      "id": "12187530-f85b-4426-be8c-0da4341abf28",
+      "name": "Empresa clickmassa"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "50020d7c-903e-4b40-b8bf-4f2925e1e780",
+              "name": "contact.table",
+              "value": "contacts",
+              "type": "string"
+            },
+            {
+              "id": "99360946-7c0d-43a4-add0-5921558ba200",
+              "name": "contact.id",
+              "value": "={{ $('REC:Body da Conexão').first().json.body.message.ticket.contactId }}",
+              "type": "string"
+            },
+            {
+              "id": "ef7d694b-1ace-46a7-85ec-44c2844765b3",
+              "name": "contact.collumn.name",
+              "value": "={{ $('REC:Body da Conexão').first().json.body.message.ticket.contact.name }}",
+              "type": "string"
+            },
+            {
+              "id": "8ca8ec7e-3468-4473-aafe-2fd19eb80d22",
+              "name": "contact.collumn.phone",
+              "value": "={{ $('REC:Body da Conexão').first().json.body.message.ticket.contact.number }}",
+              "type": "string"
+            },
+            {
+              "id": "a579f61f-05fe-4d80-abf7-e63389918013",
+              "name": "contact.collumn.email",
+              "value": "={{ $('REC:Body da Conexão').first().json.body.message.ticket.contact.email }}",
+              "type": "string"
+            },
+            {
+              "id": "598a9701-7f79-4517-a676-e7fd6489035b",
+              "name": "contact.collumn.lid",
+              "value": "={{ $('REC:Body da Conexão').first().json.body.message.ticket.contact.lid }}",
+              "type": "string"
+            },
+            {
+              "id": "fecd5ae2-d92e-4a32-99bd-fdca481cb71e",
+              "name": "contact.collumn.companies_id",
+              "value": "={{ $('REC:Body da Conexão').first().json.company }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1312,
+        1696
+      ],
+      "id": "480eabdf-f428-42ef-a71d-c5d84f9d26ad",
+      "name": "Contato clickmassa"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5a7a5606-4188-4f5b-a099-8f69cc531044",
+              "name": "conversation.table",
+              "value": "conversations",
+              "type": "string"
+            },
+            {
+              "id": "1ca0c387-7506-4a90-aa9b-a34f6ce34a62",
+              "name": "conversation.id",
+              "value": "={{ $('REC:Body da Conexão').first().json.body.message.ticket.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1536,
+        1696
+      ],
+      "id": "2f022038-8d6f-4ecb-a419-6f3d9c8fbd57",
+      "name": "Conversa clickmassa"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "50020d7c-903e-4b40-b8bf-4f2925e1e780",
+              "name": "message.table",
+              "value": "messages",
+              "type": "string"
+            },
+            {
+              "id": "99360946-7c0d-43a4-add0-5921558ba200",
+              "name": "message.id",
+              "value": "={{ $('REC:Body da Conexão').first().json.body.message.id }}",
+              "type": "string"
+            },
+            {
+              "id": "1f477701-c9d0-4f97-8e19-d25b845b4ef2",
+              "name": "message.collumn.content",
+              "value": "={{ \n  $('REC:Body da Conexão').first().json.body.message.body \n  || $('REC:Body da Conexão').item.json.body.message.caption\n}}",
+              "type": "string"
+            },
+            {
+              "id": "163712e5-1833-4f0b-b570-db71a262a99a",
+              "name": "message.collumn.fromMe",
+              "value": "={{ $('REC:Body da Conexão').first().json.body.message.fromMe }}",
+              "type": "string"
+            },
+            {
+              "id": "1676b004-d777-4fd7-8ce3-4e94f1093d3d",
+              "name": "message.collumn.file.url",
+              "value": "={{ $('REC:Body da Conexão').first().json.body.message.mediaUrl }}",
+              "type": "string"
+            },
+            {
+              "id": "095e87b1-5cef-476f-8ec1-395418d9f152",
+              "name": "message.collumn.file.base64",
+              "value": "={{ null }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1760,
+        1696
+      ],
+      "id": "9aef00b3-abd1-43e7-ada5-6ed3f860d9a2",
+      "name": "Mensagem clickmassa"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "50020d7c-903e-4b40-b8bf-4f2925e1e780",
+              "name": "inbox.table",
+              "value": "inboxes",
+              "type": "string"
+            },
+            {
+              "id": "99360946-7c0d-43a4-add0-5921558ba200",
+              "name": "inbox.id",
+              "value": "={{ $('REC:Body da Conexão').first().json.body.message.ticket.contact.firstConnectionModel.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1984,
+        1696
+      ],
+      "id": "59b5a510-b38b-4f7f-9583-46af3097fbaf",
+      "name": "Caixa de entrada clickmassa"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f9150fa5-f27f-46fd-a49b-58a342eb22e8",
+              "name": "custom.instructions",
+              "value": "Parametros usados na requisição no node 'Transmissão de Debriefing'",
+              "type": "string"
+            },
+            {
+              "id": "2a49d605-9aea-48c3-9a33-a7290a65d371",
+              "name": "custom.apiId",
+              "value": "={{ $('REC:Body da Conexão').item.json.config.id }}",
+              "type": "string"
+            },
+            {
+              "id": "b38b34ea-4f41-4c9d-b609-80a52fa0d699",
+              "name": "custom.apiToken",
+              "value": "={{ $('REC:Body da Conexão').item.json.config.token }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2208,
+        1696
+      ],
+      "id": "e4cb6aac-9378-493a-b889-28774f33b4da",
+      "name": "Customizados clickmassa"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "046fd068-61df-4d68-a491-7584f76c7302",
+              "name": "custom.instructions",
+              "value": "Parametros usados na requisição no node 'Transmissão de Debriefing'",
+              "type": "string"
+            },
+            {
+              "id": "2a49d605-9aea-48c3-9a33-a7290a65d371",
+              "name": "custom.account_id",
+              "value": "={{ $('REC:Body da Conexão').item.json.body.account.id }}",
+              "type": "string"
+            },
+            {
+              "id": "b38b34ea-4f41-4c9d-b609-80a52fa0d699",
+              "name": "custom.conversation_id",
+              "value": "={{ $('REC:Body da Conexão').item.json.body.conversation.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2208,
+        928
+      ],
+      "id": "fa9f997e-01bb-4e3b-94ee-a3129689b9d4",
+      "name": "Customizados chatwoot"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        3312,
+        1072
+      ],
+      "id": "951c4769-09f0-4be8-9e0d-562e2e981d6f",
+      "name": "Retorno texto"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        3536,
+        1168
+      ],
+      "id": "b655ba42-9725-46b9-a616-b1829141f8c3",
+      "name": "Retorno midia"
+    },
+    {
+      "parameters": {
+        "content": "## Customizados\nPodem ser usados em url ou outros lugares",
+        "height": 1600,
+        "width": 192,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2160,
+        608
+      ],
+      "typeVersion": 1,
+      "id": "e9852d84-9705-4918-ba73-595dc7b18a93",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "046fd068-61df-4d68-a491-7584f76c7302",
+              "name": "custom.instructions",
+              "value": "Parametros usados na requisição no node 'Transmissão de Debriefing'",
+              "type": "string"
+            },
+            {
+              "id": "2a49d605-9aea-48c3-9a33-a7290a65d371",
+              "name": "custom.account_id",
+              "value": "={{ $('REC:Body da Conexão').item.json.account.id }}",
+              "type": "string"
+            },
+            {
+              "id": "b38b34ea-4f41-4c9d-b609-80a52fa0d699",
+              "name": "custom.conversation_id",
+              "value": "={{ $('REC:Body da Conexão').item.json.conversation.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2208,
+        1120
+      ],
+      "id": "e69ec81b-927f-4980-852c-58a2cf509f38",
+      "name": "Customizados datatcrazy"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "046fd068-61df-4d68-a491-7584f76c7302",
+              "name": "custom.instructions",
+              "value": "Parametros usados na requisição no node 'Transmissão de Debriefing'",
+              "type": "string"
+            },
+            {
+              "id": "2a49d605-9aea-48c3-9a33-a7290a65d371",
+              "name": "custom.account_id",
+              "value": "={{ $('REC:Body da Conexão').item.json.account.id }}",
+              "type": "string"
+            },
+            {
+              "id": "b38b34ea-4f41-4c9d-b609-80a52fa0d699",
+              "name": "custom.conversation_id",
+              "value": "={{ $('REC:Body da Conexão').item.json.conversation.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2208,
+        1312
+      ],
+      "id": "47525190-2739-4ac2-a0d4-d107ed3c00fe",
+      "name": "Customizados go high level"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "046fd068-61df-4d68-a491-7584f76c7302",
+              "name": "custom.instructions",
+              "value": "Parametros usados na requisição no node 'Transmissão de Debriefing'",
+              "type": "string"
+            },
+            {
+              "id": "2a49d605-9aea-48c3-9a33-a7290a65d371",
+              "name": "custom.account_id",
+              "value": "={{ $('REC:Body da Conexão').item.json.account.id }}",
+              "type": "string"
+            },
+            {
+              "id": "b38b34ea-4f41-4c9d-b609-80a52fa0d699",
+              "name": "custom.conversation_id",
+              "value": "={{ $('REC:Body da Conexão').item.json.conversation.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2208,
+        1504
+      ],
+      "id": "418eed86-0359-4378-882d-4cbef31fe782",
+      "name": "Customizados slack"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "company.table",
+              "value": "companies",
+              "type": "string"
+            },
+            {
+              "id": "0639bad4-1ad3-478f-b6bb-40713a1b3ea9",
+              "name": "company.id",
+              "value": "={{ $('REC:Body da Conexão').item.json.company }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        864,
+        1888
+      ],
+      "id": "f4c9fcc2-12e5-4196-b445-76e19e416285",
+      "name": "Company ZPRO",
+      "notesInFlow": true,
+      "notes": "Empresa no sistema"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "user.table",
+              "value": "directus_users",
+              "type": "string"
+            },
+            {
+              "id": "b5c9f01f-3205-4831-b0f0-98a8355ffd1e",
+              "name": "user.id",
+              "value": "={{ $('REC:Body da Conexão').first().json.ticket.user.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1088,
+        1888
+      ],
+      "id": "21dd8431-4db2-45a1-8b48-ccbf58db5cb2",
+      "name": "Users ZPRO",
+      "notesInFlow": true,
+      "notes": "Agentes operadores"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "contact.table",
+              "value": "contacts",
+              "type": "string"
+            },
+            {
+              "id": "0639bad4-1ad3-478f-b6bb-40713a1b3ea9",
+              "name": "contact.id",
+              "value": "={{ $('REC:Body da Conexão').first().json.ticket.contact.id }}",
+              "type": "string"
+            },
+            {
+              "id": "76dcea7d-08b0-4e5b-8b09-2ef06d13b524",
+              "name": "contact.collumn.name",
+              "value": "={{ $('REC:Body da Conexão').first().json.ticket.contact.name }}",
+              "type": "string"
+            },
+            {
+              "id": "7174b85b-047a-4994-8851-713b6e7326af",
+              "name": "contact.collumn.phone",
+              "value": "={{ $('REC:Body da Conexão').first().json.ticket.contact.number.replaceAll(/[^0-9]/g, '') }}",
+              "type": "string"
+            },
+            {
+              "id": "cf5662eb-8603-4bcf-a3d9-e78b37e7436f",
+              "name": "contact.collumn.email",
+              "value": "={{ $('REC:Body da Conexão').first().json.ticket.contact.email }}",
+              "type": "string"
+            },
+            {
+              "id": "db3f895d-54e9-49d6-b450-182906206888",
+              "name": "contact.collumn.lid",
+              "value": "={{ $('REC:Body da Conexão').first().json.ticket.contact.lid }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1312,
+        1888
+      ],
+      "id": "6d5143da-229c-4333-b95d-62c4e1494f88",
+      "name": "Contact ZPRO",
+      "notesInFlow": true,
+      "notes": "Quem recebe a mensagem"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "conversation.table",
+              "value": "conversations",
+              "type": "string"
+            },
+            {
+              "id": "0639bad4-1ad3-478f-b6bb-40713a1b3ea9",
+              "name": "conversation.id",
+              "value": "={{ $('REC:Body da Conexão').first().json.ticket.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1536,
+        1888
+      ],
+      "id": "c1a1d156-e3ac-4648-9b90-4f6f87620ff4",
+      "name": "Conversation ZPRO",
+      "notesInFlow": true,
+      "notes": "Para sistemas que possuem tickets"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "message.table",
+              "value": "messages",
+              "type": "string"
+            },
+            {
+              "id": "0639bad4-1ad3-478f-b6bb-40713a1b3ea9",
+              "name": "message.id",
+              "value": "={{ $('REC:Body da Conexão').item.json.msg.key.id }}",
+              "type": "string"
+            },
+            {
+              "id": "26ec4cac-710a-4031-a3b9-88a1ff8924ae",
+              "name": "message.collumn.content",
+              "value": "={{ \n   $('REC:Body da Conexão').first().json.msg.message.extendedTextMessage?.text ||\n   $('REC:Body da Conexão').first().json.msg.message.imageMessage?.caption || \n   $('REC:Body da Conexão').first().json.msg.message.videoMessage?.caption ||\n   $('REC:Body da Conexão').first().json.msg.message.conversation\n}}",
+              "type": "string"
+            },
+            {
+              "id": "b7415d4e-cd1d-4d84-9cdb-9f398ef72bb5",
+              "name": "message.collumn.fromMe",
+              "value": "={{ $('REC:Body da Conexão').first().json.msg.key.fromMe }}",
+              "type": "boolean"
+            },
+            {
+              "id": "015f838e-0137-498e-bb14-c2ebee2e5b95",
+              "name": "message.collumn.file.base64",
+              "value": "={{ $('REC:Body da Conexão').first().json.msg.base64 || null }}",
+              "type": "string"
+            },
+            {
+              "id": "532a069a-4c70-44aa-ac81-3905f2f147db",
+              "name": "message.collumn.file.url",
+              "value": "={{ \n   $('REC:Body da Conexão').first().json.msg.message.audioMessage?.url || \n   $('REC:Body da Conexão').first().json.msg.message.imageMessage?.url ||\n   $('REC:Body da Conexão').first().json.msg.message.videoMessage?.url ||\n   null\n}}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1760,
+        1888
+      ],
+      "id": "6e278327-6f00-4930-8703-d4401f355459",
+      "name": "Message ZPRO",
+      "notesInFlow": true,
+      "notes": "Dados da mensagem"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "inbox.table",
+              "value": "inboxes",
+              "type": "string"
+            },
+            {
+              "id": "0639bad4-1ad3-478f-b6bb-40713a1b3ea9",
+              "name": "inbox.id",
+              "value": "={{ $('REC:Body da Conexão').first().json.ticket.whatsapp.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1984,
+        1888
+      ],
+      "id": "39604b9c-1b06-4e70-8741-fd1eb8b14a72",
+      "name": "Inbox ZPRO",
+      "notesInFlow": true,
+      "notes": "Quem envia a mensagem"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": []
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2208,
+        1888
+      ],
+      "id": "0a536fb4-ae7e-4f31-b0d2-f94a98c95004",
+      "name": "Customizados zpro"
+    },
+    {
+      "parameters": {
+        "content": "### 1. RECEBE\n- [x] Workflow\n- [ ] Webhook\n- [ ] Rabbit\n- [ ] Evaluations",
+        "height": 1696,
+        "width": 192,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -80,
+        544
+      ],
+      "typeVersion": 1,
+      "id": "a499f090-ca80-4a11-90ed-b0c9c4811497",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "### 2. RASTREIA\n",
+        "height": 1712,
+        "width": 192,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        144,
+        544
+      ],
+      "typeVersion": 1,
+      "id": "929a893f-5c9c-4e93-8b4e-9e2cdf5f2c4c",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "### 3. VALIDA",
+        "height": 1712,
+        "width": 176,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        384,
+        544
+      ],
+      "typeVersion": 1,
+      "id": "6195a7dd-0800-441f-8699-8a6fc7a1fd92",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "### 4. ROTEIA",
+        "height": 1712,
+        "width": 192,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        592,
+        544
+      ],
+      "typeVersion": 1,
+      "id": "a5a2d67e-fdf6-4ecc-8d9f-2b0464b45592",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "### 5. PROCESSA\nO processamento desse fluxo de padronizacao envolve receber o body da conexao e colocar em um padrao unico que sera usado em consultas ao banco primariamente.",
+        "height": 1712,
+        "width": 1552,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        816,
+        544
+      ],
+      "typeVersion": 1,
+      "id": "5b9e430c-35e3-42e2-bdb5-c116d0e970bf",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "### 6. AGREGA",
+        "height": 1536,
+        "width": 176,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2400,
+        720
+      ],
+      "typeVersion": 1,
+      "id": "22e953ec-7d0e-4a62-a493-acfcd7e4c697",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "content": "### 7. CONFIRMA",
+        "height": 1536,
+        "width": 624,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2608,
+        720
+      ],
+      "typeVersion": 1,
+      "id": "d96019b6-afd1-44b9-9502-cd3d4af6d665",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "### 8. ENTREGA",
+        "height": 1536,
+        "width": 496,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3264,
+        720
+      ],
+      "typeVersion": 1,
+      "id": "0032b485-3e3d-4aed-adb4-bfc0dc1cddd9",
+      "name": "Sticky Note15"
+    },
+    {
+      "parameters": {
+        "dataToSave": {
+          "values": [
+            {
+              "key": "control",
+              "value": "={{ $json.control }}"
+            },
+            {
+              "key": "company",
+              "value": "={{ $json.company }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executionData",
+      "typeVersion": 1.1,
+      "position": [
+        192,
+        1552
+      ],
+      "id": "f3debc18-7fff-41b4-bb6e-a3d11007ee0a",
+      "name": "RAS:ID do primeiro fluxo"
+    },
+    {
+      "parameters": {
+        "inputSource": "jsonExample",
+        "jsonExample": "{\n  \"logs\": false,\n  \"body\": {},\n  \"company\": \"\",\n  \"connection\": \"\",\n  \"control\": \"\"\n}"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -32,
+        1552
+      ],
+      "id": "972b8d8c-a54f-4fb0-927d-a44af6f6b404",
+      "name": "REC:Body da Conexão"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6e6de8b4-e1f1-42c8-8f56-10900e65f7cf",
+              "leftValue": "={{ $('REC:Body da Conexão').item.json.body }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        416,
+        1552
+      ],
+      "id": "244588c4-b637-4087-be6c-1bbf0293a36a",
+      "name": "VAL:Recebeu Body da Conexão?"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a500dd0d-8098-4a4c-84af-63ee910a3552",
+                    "leftValue": "={{ $('REC:Body da Conexão').item.json.connection }}",
+                    "rightValue": "=evolution",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "evolution"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('REC:Body da Conexão').item.json.connection }}",
+                    "rightValue": "chatwoot",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    },
+                    "id": "f5273d7f-42d9-4ab6-a386-0ce71da4e312"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "chatwoot"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5dc0dde9-8522-4602-81cc-c56cb817f788",
+                    "leftValue": "={{ $('REC:Body da Conexão').item.json.connection }}",
+                    "rightValue": "datacrazy",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "datacrazy"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "70559665-e59f-4e1c-a92d-29dd92d31c14",
+                    "leftValue": "={{ $('REC:Body da Conexão').item.json.connection }}",
+                    "rightValue": "ghl",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "goHighLevel"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "dacc8766-5523-4e84-b09d-a05b821502f5",
+                    "leftValue": "={{ $('REC:Body da Conexão').item.json.connection }}",
+                    "rightValue": "slack",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "slack"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cea2ed28-1023-48f2-9d71-3c601c0706bd",
+                    "leftValue": "={{ $('REC:Body da Conexão').item.json.connection }}",
+                    "rightValue": "clickmassa",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "clickmassa"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "82f3573d-1ec0-4f14-9847-f4761c4d4d9d",
+                    "leftValue": "={{ $('REC:Body da Conexão').item.json.connection }}",
+                    "rightValue": "zpro",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "zpro"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        640,
+        1312
+      ],
+      "id": "22ef161f-7b6f-473f-997f-a3325b2a3ffe",
+      "name": "ROT:Qual conexão padronizada",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "errorMessage": "Irmao tu nao enviou o body, normalmente ele vem do node webhook!"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        640,
+        1696
+      ],
+      "id": "72354f94-49f3-483a-b0f9-042364c1910e",
+      "name": "ERR:Não recebeu body de conexão"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "company.table",
+              "value": "companies",
+              "type": "string"
+            },
+            {
+              "id": "0639bad4-1ad3-478f-b6bb-40713a1b3ea9",
+              "name": "company.id",
+              "value": "={{ $('REC:Body da Conexão').first().json.company }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        864,
+        928
+      ],
+      "id": "32a48e90-aea1-4c0e-8367-cff33dff4b01",
+      "name": "CWT padão para entidade empresa",
+      "notesInFlow": true,
+      "notes": "Empresa no sistema"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "company.table",
+              "value": "directus_users",
+              "type": "string"
+            },
+            {
+              "id": "0639bad4-1ad3-478f-b6bb-40713a1b3ea9",
+              "name": "company.ids.primary",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "4f27ede6-a8bd-43b6-b5e4-2b25849fea00",
+              "name": "company.ids.external",
+              "value": "={{ $('REC:Body da Conexão').item.json.lead.phone }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1088,
+        1120
+      ],
+      "id": "380578e9-f20b-471c-8024-77b95c3c84fa",
+      "name": "DTC padrão para entidade atendentes"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "contact.table",
+              "value": "contacts",
+              "type": "string"
+            },
+            {
+              "id": "4f27ede6-a8bd-43b6-b5e4-2b25849fea00",
+              "name": "contact.id",
+              "value": "={{ $('REC:Body da Conexão').item.json.body.data.key.remoteJid || $('REC:Body da Conexão').first().json.sender }}",
+              "type": "string"
+            },
+            {
+              "id": "76dcea7d-08b0-4e5b-8b09-2ef06d13b524",
+              "name": "contact.collumn.name",
+              "value": "={{ $('REC:Body da Conexão').item.json.data.pushName || $('REC:Body da Conexão').first().json.pushName }}",
+              "type": "string"
+            },
+            {
+              "id": "7174b85b-047a-4994-8851-713b6e7326af",
+              "name": "contact.collumn.phone",
+              "value": "={{ ($('REC:Body da Conexão').item.json.data.key.remoteJid || $('REC:Body da Conexão').first().json.sender).split(\"@\").slice(0,1).join() }}",
+              "type": "string"
+            },
+            {
+              "id": "cf5662eb-8603-4bcf-a3d9-e78b37e7436f",
+              "name": "contact.collumn.email",
+              "value": "={{ null && \"Email do contato que vem do sistema\" }}",
+              "type": "string"
+            },
+            {
+              "id": "db3f895d-54e9-49d6-b450-182906206888",
+              "name": "contact.collumn.lid",
+              "value": "={{ null && \"Lid, id unificado do contato no facebook\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1312,
+        736
+      ],
+      "id": "e5ba45fb-1e29-4273-89cc-79fdb96a6920",
+      "name": "evolution > contatos",
+      "notesInFlow": true,
+      "notes": "Quem recebe a mensagem"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "conversation.table",
+              "value": "conversations",
+              "type": "string"
+            },
+            {
+              "id": "4f27ede6-a8bd-43b6-b5e4-2b25849fea00",
+              "name": "conversation.id",
+              "value": "={{ $('REC:Body da Conexão').first().json.data.key.remoteJid || $('REC:Body da Conexão').first().json.sessionId }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1536,
+        736
+      ],
+      "id": "e500fc6e-c5bb-4a6d-ab41-0bfe2ca001c5",
+      "name": "evolution > conversation",
+      "notesInFlow": true,
+      "notes": "Para sistemas que possuem tickets"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "user.table",
+              "value": "directus_users",
+              "type": "string"
+            },
+            {
+              "id": "663dc5dc-e0cf-468a-bf24-f636fa650a28",
+              "name": "user.id",
+              "value": "={{ $('REC:Body da Conexão').first().json.body.sender || $('REC:Body da Conexão').first().json.remoteJid }}",
+              "type": "string"
+            },
+            {
+              "id": "d88a2605-e7a1-4187-be71-f1b5dc13f8d8",
+              "name": "user.collumn.email",
+              "value": "={{ null && \"Email que ira ser presquisado no directus na tabela direcus_users para saber se a pessoa é admin\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1088,
+        736
+      ],
+      "id": "625072e0-6a64-4b4b-b379-16db51fdbd8c",
+      "name": "evolution > usuarios",
+      "notesInFlow": true,
+      "notes": "Agentes operadores"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "company.table",
+              "value": "companies",
+              "type": "string"
+            },
+            {
+              "id": "0639bad4-1ad3-478f-b6bb-40713a1b3ea9",
+              "name": "company.id",
+              "value": "={{ $('REC:Body da Conexão').first().json.company }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        864,
+        736
+      ],
+      "id": "796fbea7-baec-43b0-9c51-1186a1d7c95e",
+      "name": "evolution > empresa",
+      "notesInFlow": true,
+      "notes": "Empresa no sistema"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "message.table",
+              "value": "messages",
+              "type": "string"
+            },
+            {
+              "id": "4f27ede6-a8bd-43b6-b5e4-2b25849fea00",
+              "name": "message.id",
+              "value": "={{ $('REC:Body da Conexão').item.json.body.data.key.id }}",
+              "type": "string"
+            },
+            {
+              "id": "26ec4cac-710a-4031-a3b9-88a1ff8924ae",
+              "name": "message.collumn.content",
+              "value": "={{ $('REC:Body da Conexão').first().json.data.message.conversation || $('REC:Body da Conexão').item.json.data.message.templateMessage.hydratedTemplate.hydratedContentText }}",
+              "type": "string"
+            },
+            {
+              "id": "b7415d4e-cd1d-4d84-9cdb-9f398ef72bb5",
+              "name": "message.collumn.fromMe",
+              "value": "={{ $('REC:Body da Conexão').first().json.data.key.fromMe }}",
+              "type": "boolean"
+            },
+            {
+              "id": "015f838e-0137-498e-bb14-c2ebee2e5b95",
+              "name": "message.collumn.file.base64",
+              "value": "={{ null && \"Campo com o base64 do arquivo\" }}",
+              "type": "array"
+            },
+            {
+              "id": "532a069a-4c70-44aa-ac81-3905f2f147db",
+              "name": "message.collumn.file.url",
+              "value": "={{ $('REC:Body da Conexão').item.json.data.message.audioMessage.url }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1760,
+        736
+      ],
+      "id": "edc5a08d-85b6-4b60-a100-7b4cb089c179",
+      "name": "evolution > mensagem",
+      "notesInFlow": true,
+      "alwaysOutputData": true,
+      "notes": "Dados da mensagem"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b7a9fdf-5c2d-4248-a98c-1bf3c026d632",
+              "name": "inbox.table",
+              "value": "inboxes",
+              "type": "string"
+            },
+            {
+              "id": "0639bad4-1ad3-478f-b6bb-40713a1b3ea9",
+              "name": "inbox.ids.primary",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "4f27ede6-a8bd-43b6-b5e4-2b25849fea00",
+              "name": "inbox.ids.external",
+              "value": "={{ $('REC:Body da Conexão').item.json.data.instanceId }}",
+              "type": "string"
+            },
+            {
+              "id": "44541df9-955d-472b-b0e3-18028aab8676",
+              "name": "user.collumn.name",
+              "value": "={{ $('REC:Body da Conexão').item.json.instance }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1984,
+        736
+      ],
+      "id": "e13f4cfa-ddb0-4b9f-995f-7a96e50ef751",
+      "name": "evolution > inbox",
+      "notesInFlow": true,
+      "disabled": true,
+      "notes": "Quem envia a mensagem"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "046fd068-61df-4d68-a491-7584f76c7302",
+              "name": "custom.instructions",
+              "value": "Parametros nao cobertos pela padronizacao de entidade que voce pode precisar no sistema",
+              "type": "string"
+            },
+            {
+              "id": "2a49d605-9aea-48c3-9a33-a7290a65d371",
+              "name": "custom.account_id",
+              "value": "={{ $('REC:Body da Conexão').item.json.account.id }}",
+              "type": "string"
+            },
+            {
+              "id": "b38b34ea-4f41-4c9d-b609-80a52fa0d699",
+              "name": "custom.conversation_id",
+              "value": "={{ $('REC:Body da Conexão').item.json.conversation.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2208,
+        736
+      ],
+      "id": "ffe57084-2947-4344-a957-7c8f025a9394",
+      "name": "evolution > custom"
+    }
+  ],
+  "connections": {
+    "Slack": {
+      "main": [
+        [
+          {
+            "node": "Juntar1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GoHighLevel": {
+      "main": [
+        [
+          {
+            "node": "Customizados go high level",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Juntar": {
+      "main": [
+        [
+          {
+            "node": "Seta campos vazios como null",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nome e Telefone GHL Contato": {
+      "main": [
+        [
+          {
+            "node": "GoHighLevel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Users Datacrazy": {
+      "main": [
+        [
+          {
+            "node": "DTC padrão para entidade atendentes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inbox Datacrazy": {
+      "main": [
+        [
+          {
+            "node": "Conversation Datacrazy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Conversation Datacrazy": {
+      "main": [
+        [
+          {
+            "node": "Message Datatcrazy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message Datatcrazy": {
+      "main": [
+        [
+          {
+            "node": "Customizados datatcrazy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contact Datacrazy": {
+      "main": [
+        [
+          {
+            "node": "Inbox Datacrazy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Modo desenvolvedor ativado": {
+      "main": [
+        [
+          {
+            "node": "Retorno midia",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Valida message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Seta campos vazios como null": {
+      "main": [
+        [
+          {
+            "node": "Validações",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validações": {
+      "main": [
+        [
+          {
+            "node": "Valida entidade message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Users Chatwoot": {
+      "main": [
+        [
+          {
+            "node": "Contact Chatwoot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contact Chatwoot": {
+      "main": [
+        [
+          {
+            "node": "Conversation Chatwoot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inbox Chatwoot": {
+      "main": [
+        [
+          {
+            "node": "Customizados chatwoot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Conversation Chatwoot": {
+      "main": [
+        [
+          {
+            "node": "Message Chatwoot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message Chatwoot": {
+      "main": [
+        [
+          {
+            "node": "Inbox Chatwoot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Juntar1": {
+      "main": [
+        [
+          {
+            "node": "Customizados slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Valida entidade message": {
+      "main": [
+        [
+          {
+            "node": "Retorno texto",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Modo desenvolvedor ativado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Empresa clickmassa": {
+      "main": [
+        [
+          {
+            "node": "Contato clickmassa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contato clickmassa": {
+      "main": [
+        [
+          {
+            "node": "Conversa clickmassa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Conversa clickmassa": {
+      "main": [
+        [
+          {
+            "node": "Mensagem clickmassa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mensagem clickmassa": {
+      "main": [
+        [
+          {
+            "node": "Caixa de entrada clickmassa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Caixa de entrada clickmassa": {
+      "main": [
+        [
+          {
+            "node": "Customizados clickmassa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customizados clickmassa": {
+      "main": [
+        [
+          {
+            "node": "Juntar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customizados chatwoot": {
+      "main": [
+        [
+          {
+            "node": "Juntar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customizados datatcrazy": {
+      "main": [
+        [
+          {
+            "node": "Juntar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customizados go high level": {
+      "main": [
+        [
+          {
+            "node": "Juntar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customizados slack": {
+      "main": [
+        [
+          {
+            "node": "Juntar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Company ZPRO": {
+      "main": [
+        [
+          {
+            "node": "Users ZPRO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Users ZPRO": {
+      "main": [
+        [
+          {
+            "node": "Contact ZPRO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contact ZPRO": {
+      "main": [
+        [
+          {
+            "node": "Conversation ZPRO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Conversation ZPRO": {
+      "main": [
+        [
+          {
+            "node": "Message ZPRO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message ZPRO": {
+      "main": [
+        [
+          {
+            "node": "Inbox ZPRO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inbox ZPRO": {
+      "main": [
+        [
+          {
+            "node": "Customizados zpro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customizados zpro": {
+      "main": [
+        [
+          {
+            "node": "Juntar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RAS:ID do primeiro fluxo": {
+      "main": [
+        [
+          {
+            "node": "VAL:Recebeu Body da Conexão?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "REC:Body da Conexão": {
+      "main": [
+        [
+          {
+            "node": "RAS:ID do primeiro fluxo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VAL:Recebeu Body da Conexão?": {
+      "main": [
+        [
+          {
+            "node": "ROT:Qual conexão padronizada",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERR:Não recebeu body de conexão",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ROT:Qual conexão padronizada": {
+      "main": [
+        [
+          {
+            "node": "evolution > empresa",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "CWT padão para entidade empresa",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Users Datacrazy",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Nome e Telefone GHL Contato",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Slack",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Empresa clickmassa",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Company ZPRO",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Integration Null",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CWT padão para entidade empresa": {
+      "main": [
+        [
+          {
+            "node": "Users Chatwoot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DTC padrão para entidade atendentes": {
+      "main": [
+        [
+          {
+            "node": "Contact Datacrazy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "evolution > contatos": {
+      "main": [
+        [
+          {
+            "node": "evolution > conversation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "evolution > conversation": {
+      "main": [
+        [
+          {
+            "node": "evolution > mensagem",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "evolution > usuarios": {
+      "main": [
+        [
+          {
+            "node": "evolution > contatos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "evolution > empresa": {
+      "main": [
+        [
+          {
+            "node": "evolution > usuarios",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "evolution > mensagem": {
+      "main": [
+        [
+          {
+            "node": "evolution > inbox",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "evolution > inbox": {
+      "main": [
+        [
+          {
+            "node": "evolution > custom",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "evolution > custom": {
+      "main": [
+        [
+          {
+            "node": "Juntar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "REC:Body da Conexão": [
+      {
+        "logs": false,
+        "body": {
+          "message": {
+            "mediaName": null,
+            "mediaUrl": "",
+            "msgCreatedAt": "2025-09-11T22:11:45.555Z",
+            "id": "27231d93-c58e-4ea0-b039-338e4953a371",
+            "ack": 0,
+            "wabaMediaId": null,
+            "isDownload": true,
+            "isDeleted": false,
+            "userId": null,
+            "scheduleDate": null,
+            "sendType": null,
+            "note": false,
+            "importStatus": null,
+            "isTransfer": false,
+            "params": null,
+            "templateMediaId": null,
+            "typeTemplate": null,
+            "templateId": null,
+            "destinationUserId": null,
+            "destinationQueueId": null,
+            "body": "Oi",
+            "fromMe": false,
+            "tenantId": 1,
+            "ticketId": 14209,
+            "contactId": 45109,
+            "read": false,
+            "messageId": "wamid.HBgMNTU1Mzg0Mzk2MTc0FQIAEhggQUMxQjQ0Q0ZDMjUxMDc2NzM0N0I2MzE0Qzk5NERCOTEA",
+            "quotedMsgId": null,
+            "mediaType": "text",
+            "status": "received",
+            "tenantUid": "0505dfd1-68a2-4259-9310-9f137f51da10",
+            "isObjectStorage": true,
+            "timestamp": "1757628704",
+            "raw": {
+              "from": "555384396174",
+              "id": "wamid.HBgMNTU1Mzg0Mzk2MTc0FQIAEhggQUMxQjQ0Q0ZDMjUxMDc2NzM0N0I2MzE0Qzk5NERCOTEA",
+              "timestamp": "1757628704",
+              "text": {
+                "body": "Oi"
+              },
+              "type": "text"
+            },
+            "broadcast": null,
+            "updatedAt": "2025-09-11T22:11:45.555Z",
+            "createdAt": "2025-09-11T22:11:45.555Z",
+            "idFront": null,
+            "caption": null,
+            "originalName": null,
+            "size": 0,
+            "previousBody": null,
+            "externalKey": null,
+            "code": null,
+            "ticket": {
+              "id": 14209,
+              "status": "pending",
+              "unreadMessages": 2,
+              "lastMessage": "Oi",
+              "firstMessage": "Oi",
+              "channel": "waba",
+              "answered": false,
+              "isGroup": false,
+              "isActiveDemand": false,
+              "isCreatedAPI": false,
+              "lastInteractionBot": null,
+              "lastOutOfHoursMessage": null,
+              "lastOutOfAbsenseMessage": null,
+              "origem": "C",
+              "botRetries": 0,
+              "closedAt": null,
+              "lastMessageAt": "1757628705520",
+              "startedAttendanceAt": null,
+              "userId": null,
+              "contactId": 45109,
+              "whatsappId": 15,
+              "promptId": null,
+              "autoReplyId": null,
+              "stepAutoReplyId": null,
+              "chatFlowId": null,
+              "stepChatFlow": null,
+              "queueId": 21,
+              "closingReasonId": null,
+              "tenantId": 1,
+              "isCreatedPush": false,
+              "apiConfig": null,
+              "variables": {},
+              "externalKey": null,
+              "isFixed": false,
+              "contactFunnelId": null,
+              "unread": true,
+              "timestamp": "1757715105",
+              "slaTime": null,
+              "saleValue": null,
+              "sentiment": null,
+              "sentimentNote": null,
+              "createdAt": "2025-09-11T22:11:03.224Z",
+              "updatedAt": "2025-09-11T22:11:45.525Z",
+              "contact": {
+                "id": 45109,
+                "name": "Gabriel",
+                "number": "555384396174",
+                "lid": "91860894761135",
+                "isNumber": true,
+                "email": null,
+                "profilePicUrl": null,
+                "pushname": null,
+                "observations": null,
+                "channel": "whatsapp",
+                "isUser": false,
+                "isWAContact": false,
+                "isGroup": false,
+                "deletedAt": null,
+                "negotiatedValue": null,
+                "leadStatusId": null,
+                "leadOriginId": null,
+                "queueId": null,
+                "tenantId": 1,
+                "customFields": {},
+                "tags": [],
+                "firstConnection": 2,
+                "createdAt": "2025-09-10T14:52:26.034Z",
+                "updatedAt": "2025-09-11T18:14:04.405Z",
+                "extraInfo": [],
+                "leadStatus": null,
+                "leadOrigin": null,
+                "wallets": [],
+                "firstConnectionModel": {
+                  "UrlWabaWebHook": "https://enterprise-290api.123atendi.com.br/wabahooks/null/null",
+                  "UrlMessengerWebHook": "https://enterprise-290api.123atendi.com.br/fb-messenger-hooks/null",
+                  "id": 2,
+                  "name": "Gabriel Corporativo",
+                  "session": "",
+                  "qrcode": "",
+                  "status": "CONNECTED",
+                  "battery": null,
+                  "plugged": null,
+                  "isActive": true,
+                  "enableSentimentAnalysis": false,
+                  "disableBotAfterAbsence": true,
+                  "refuseComments": false,
+                  "isRejectCall": false,
+                  "callRejectedMessage": null,
+                  "isDeleted": false,
+                  "retries": 0,
+                  "pid": null,
+                  "isDefault": false,
+                  "monitoring": true,
+                  "archiveChat": false,
+                  "remoteAuth": false,
+                  "tokenTelegram": null,
+                  "instagramUser": null,
+                  "instagramKey": null,
+                  "fbPageId": null,
+                  "phoneId": null,
+                  "fbObject": null,
+                  "url": "https://wa-02-go.clickmassa.com.br",
+                  "container": "wa-02-go",
+                  "type": "whatsapp",
+                  "restartAt": null,
+                  "number": "555391847557",
+                  "minutesInactivity": 0,
+                  "phone": null,
+                  "balance": null,
+                  "tenantId": 1,
+                  "wabaBSP": null,
+                  "provider": "baileys",
+                  "tokenAPI": null,
+                  "uid": "88290884-a518-448f-bb1d-e7e77d805919",
+                  "tokenHook": null,
+                  "originalType": null,
+                  "editedAt": null,
+                  "businessHours": [
+                    {
+                      "day": 0,
+                      "hr1": "08:00",
+                      "hr2": "12:00",
+                      "hr3": "14:00",
+                      "hr4": "18:00",
+                      "type": "O",
+                      "label": "Domingo"
+                    },
+                    {
+                      "day": 1,
+                      "hr1": "08:00",
+                      "hr2": "12:00",
+                      "hr3": "14:00",
+                      "hr4": "18:00",
+                      "type": "O",
+                      "label": "Segunda-Feira"
+                    },
+                    {
+                      "day": 2,
+                      "hr1": "08:00",
+                      "hr2": "12:00",
+                      "hr3": "14:00",
+                      "hr4": "18:00",
+                      "type": "O",
+                      "label": "Terça-Feira"
+                    },
+                    {
+                      "day": 3,
+                      "hr1": "08:00",
+                      "hr2": "12:00",
+                      "hr3": "14:00",
+                      "hr4": "18:00",
+                      "type": "O",
+                      "label": "Quarta-Feira"
+                    },
+                    {
+                      "day": 4,
+                      "hr1": "08:00",
+                      "hr2": "12:00",
+                      "hr3": "14:00",
+                      "hr4": "18:00",
+                      "type": "O",
+                      "label": "Quinta-Feira"
+                    },
+                    {
+                      "day": 5,
+                      "hr1": "08:00",
+                      "hr2": "12:00",
+                      "hr3": "14:00",
+                      "hr4": "18:00",
+                      "type": "O",
+                      "label": "Sexta-Feira"
+                    },
+                    {
+                      "day": 6,
+                      "hr1": "08:00",
+                      "hr2": "12:00",
+                      "hr3": "14:00",
+                      "hr4": "18:00",
+                      "type": "O",
+                      "label": "Sábado"
+                    }
+                  ],
+                  "messageBusinessHours": null,
+                  "enableActiveSearchControl": false,
+                  "activeSearchLimit": 30,
+                  "currentAmountOfActiveSearch": 0,
+                  "createdAt": "2025-06-06T13:46:44.720Z",
+                  "updatedAt": "2025-07-14T16:57:28.210Z",
+                  "chatFlowId": null,
+                  "inactivityClosingReasonId": null,
+                  "defaultQueueId": 12,
+                  "promptId": null
+                }
+              },
+              "user": null,
+              "whatsapp": {
+                "id": 15,
+                "name": "Atendimento 123 Coexistencia",
+                "type": "waba",
+                "originalType": null,
+                "editedAt": null
+              },
+              "queue": {
+                "id": 21,
+                "queue": "👩‍💻Atendimento",
+                "isActive": true,
+                "userId": 2,
+                "tenantId": 1,
+                "messageDefaultContact": null,
+                "createdAt": "2025-07-13T19:35:42.181Z",
+                "updatedAt": "2025-07-13T19:35:42.181Z"
+              }
+            }
+          },
+          "tenantId": 1,
+          "sessionId": 15,
+          "config": {
+            "id": "cdd352a5-b614-4c75-bff3-a889ead31af5",
+            "sessionId": 15,
+            "name": "Jana 4.1",
+            "isActive": true,
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRJZCI6MSwicHJvZmlsZSI6ImFkbWluIiwic2Vzc2lvbklkIjoxNSwiY2hhbm5lbFR5cGUiOiJ3YWJhIiwiaWF0IjoxNzU3NjI4NTY5LCJleHAiOjE4MjA3MDA1Njl9.tZYLC7uKQo9NGRRlseHadcAF5fGxOu9N1LOege2haEo",
+            "authToken": null,
+            "urlServiceStatus": null,
+            "urlMessageStatus": null,
+            "ticketAction": "OT",
+            "queueId": null,
+            "userId": 1,
+            "createdAt": "2025-09-11T22:09:29.044Z",
+            "updatedAt": "2025-09-11T22:09:29.044Z",
+            "tenantId": 1,
+            "isNewTicket": false,
+            "isFinishedTicket": false,
+            "isFinishedTicketHistoricMessages": false,
+            "isStartedTicket": false,
+            "isUpdateOnTicket": false,
+            "isTransferOfTicket": false,
+            "isNewMessage": true,
+            "isAckMessage": false,
+            "isNewContact": false,
+            "isUpdateContact": false,
+            "isConnectionStatusUpdate": false,
+            "isOpportunity": false,
+            "webhookUrl": "https://webhook.123atendi.com.br/webhook/otto/clickmassa/91e1f8fc-b372-4d71-81f9-a59c948630d5"
+          },
+          "event": "NewMessage"
+        },
+        "company": "b17a26f7-525e-47d4-950d-9a6a7b298dc8",
+        "connection": "clickmassa",
+        "control": "2357"
+      }
+    ]
+  },
+  "meta": {
+    "instanceId": "13e69768d9105474f419387ffa19b4983ca3540caed4fb88ead28d7a04e5c816"
+  }
+}

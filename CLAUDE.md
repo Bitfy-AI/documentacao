@@ -4,13 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This is the **Protocolo de Agentes No-Code Zion (PANZ)** documentation repository - an open standard for developing intelligent conversational agents using no-code/low-code tools, primarily n8n. The protocol combines technical rigor with no-code accessibility.
+This is the **Zion Protocol** documentation repository - an open standard for developing intelligent conversational agents using no-code/low-code tools, primarily n8n. The protocol combines technical rigor with no-code accessibility.
 
 ## Key Architecture Concepts
 
-### 8-Step Pattern (Core of the Protocol)
+### Octógono Zion (Core of the Protocol)
 
-All n8n workflows MUST follow this mandatory 8-step pattern with standardized colors:
+All n8n workflows MUST follow this mandatory 8-step pattern (Octógono) with standardized colors:
 
 1. **RECEBE** 🟩 - Receives data from multiple sources
 2. **RASTREIA** 🟨 - Generates unique IDs and telemetry
@@ -42,11 +42,11 @@ Inside workflows: `[STEP].[TYPE]:[ACTION]`
 
 ```
 /protocolo              # Protocol specifications and methodology
-  /metodologia          # 8-Step pattern implementation guides
+  /metodologia          # Octógono Zion implementation guides
   /componentes          # Component documentation (Context Manager, etc.)
+  /nomenclatura         # Naming conventions and standards
   /templates            # Visual templates and examples
   /ARQUITETURA-MERMAID.md  # Complete architecture diagrams
-  /NOMENCLATURAS-ZION.md   # Comprehensive naming conventions
 
 /templates              # n8n workflow templates (future)
 /exemplos              # Implementation examples (future)
@@ -124,8 +124,8 @@ graph TB
 
 ## Key Files to Understand
 
-1. **protocolo/NOMENCLATURAS-ZION.md** - Complete naming conventions and standards
-2. **protocolo/metodologia/README.md** - 8-Step pattern detailed implementation
+1. **protocolo/nomenclatura/NOMENCLATURAS-ZION.md** - Complete naming conventions and standards
+2. **protocolo/metodologia/README.md** - Octógono Zion detailed implementation
 3. **protocolo/ARQUITETURA-MERMAID.md** - Visual architecture diagrams
 4. **protocolo/componentes/CONTEXT-MANAGER-DATABASE.md** - Database structure for beginners
 

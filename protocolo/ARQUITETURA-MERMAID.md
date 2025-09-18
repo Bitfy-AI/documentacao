@@ -15,7 +15,7 @@ graph TB
 
     subgraph "CAMADA 2: PROCESSAMENTO"
         FAC[Factory Pattern<br/>Normalizadores]
-        STEP[8-Step Pattern<br/>Executor]
+        STEP[Octógono Zion<br/>Executor]
         RT[Roteamento<br/>Inteligente]
     end
 
@@ -63,7 +63,7 @@ graph TB
     style VDB fill:#16A085
 ```
 
-## 2. Fluxo do Padrão 8-Step
+## 2. Fluxo do Padrão Octógono
 
 ```mermaid
 flowchart LR
@@ -160,7 +160,7 @@ graph TD
 ```mermaid
 graph LR
     subgraph "PROTOCOLO ZION"
-        CORE[8-Step<br/>Core Engine]
+        CORE[Octógono<br/>Core Engine]
     end
 
     subgraph "ATENDIMENTO"
@@ -207,7 +207,7 @@ sequenceDiagram
     participant C as Canal (WhatsApp)
     participant W as Webhook
     participant F as Factory
-    participant E as 8-Step Engine
+    participant E as Octógono Engine
     participant AI as LLM/IA
     participant DB as Database
     participant R as Response
@@ -434,7 +434,7 @@ stateDiagram-v2
 ```mermaid
 graph LR
     subgraph "PROTOCOLO ZION"
-        ZION[ZION<br/>8-Step Engine]
+        ZION[ZION<br/>Octógono Engine]
     end
 
     subgraph "CRM/VENDAS"

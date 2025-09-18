@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Read(//c/Users/Windows Home/Documents/GitHub/**)"
+      "Read(//c/Users/Windows Home/Documents/GitHub/**)",
+      "Bash(git add:*)",
+      "Bash(node:*)"
     ],
     "deny": [],
     "ask": []

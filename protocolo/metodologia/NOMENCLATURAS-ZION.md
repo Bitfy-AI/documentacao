@@ -147,34 +147,6 @@ Exemplo: SUP-WA-001
 | **IG** | Instagram | Instagram DM | Direct do Instagram |
 | **INT** | Interno | Processos internos | Sem canal externo |
 
-### 📋 Estrutura Completa do Workflow
-
-```javascript
-{
-  // CAMADA 1: Display
-  "displayName": "Qualificação de Leads - WhatsApp Business",
-  "description": "Qualifica leads recebidos via WhatsApp usando IA",
-
-  // CAMADA 2: Technical
-  "technicalId": "VEN-WA-002",
-  "version": "2.1.0",
-  "type": "workflow",
-
-  // CAMADA 3: Search
-  "tags": ["vendas", "leads", "whatsapp", "qualificacao", "ia"],
-  "searchKeywords": "qualify lead whatsapp ai vendas comercial",
-
-  // Metadados
-  "domain": "vendas",
-  "channel": "whatsapp",
-  "createdAt": "2024-01-15T10:00:00Z",
-  "updatedAt": "2024-01-20T15:30:00Z",
-  "author": "time.vendas@empresa.com",
-  "status": "production",
-  "sla": "5min",
-  "priority": "high"
-}
-```
 
 ---
 

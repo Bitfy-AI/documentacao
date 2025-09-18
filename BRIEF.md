@@ -1,11 +1,11 @@
-# 📋 BRIEF - Protocolo de Agentes No-Code Zion (PANZ)
+# 📋 BRIEF - Zion Protocol
 
 ## 🧠 BRAIN DUMP - Ideias e Conceitos
 <!-- Jogue aqui todas as ideias, conceitos e insights sem se preocupar com organização -->
 - Unificação entre protocolo técnico e metodologia de implementação
 - Democratizar criação de agentes IA sem código
 - Padrão aberto para integração de chatbots empresariais
-- Framework 7-Step Pattern aplicado a conversational AI
+- Octógono Zion aplicado a conversational AI
 - Factory Pattern para normalização de múltiplas fontes
 
 
@@ -13,7 +13,7 @@
 
 ## 🎯 OBJETIVO PRINCIPAL
 <!-- Qual é o grande objetivo do Protocolo Zion? -->
-Estabelecer um **protocolo aberto e padronizado** para desenvolvimento de agentes conversacionais inteligentes usando ferramentas no-code/low-code, permitindo que empresas de todos os tamanhos implementem automação avançada sem necessidade de programação tradicional.
+Estabelecer um **protocolo aberto e padronizado** (Zion Protocol) para desenvolvimento de agentes conversacionais inteligentes usando ferramentas no-code/low-code, permitindo que empresas de todos os tamanhos implementem automação avançada sem necessidade de programação tradicional.
 
 
 ---
@@ -36,10 +36,10 @@ Estabelecer um **protocolo aberto e padronizado** para desenvolvimento de agente
 
 ## 💡 PROPOSTA DE VALOR
 <!-- O que diferencia o Protocolo Zion? Qual o valor único? -->
-O **Protocolo de Agentes No-Code Zion (PANZ)** é um padrão aberto que combina:
+O **Zion Protocol** é um padrão aberto que combina:
 
 1. **Protocolo Técnico**: Especificação clara de como agentes se comunicam e processam dados
-2. **Metodologia Prática**: Framework 7-Step Pattern para garantir qualidade e rastreabilidade
+2. **Metodologia Prática**: Octógono Zion para garantir qualidade e rastreabilidade
 3. **Stack Open Source**: Ferramentas gratuitas e abertas (n8n, Postgres, Langchain)
 4. **Templates Prontos**: Aceleração com workflows pré-construídos e testados
 
@@ -149,7 +149,7 @@ Camada 1: INTERFACE
 
 Camada 2: PROCESSAMENTO
 ├── Factory Pattern (adaptadores)
-├── 7-Step Pattern (execução)
+├── Octógono Zion (execução)
 └── Roteamento inteligente
 
 Camada 3: INTELIGÊNCIA
@@ -171,15 +171,16 @@ Camada 5: OBSERVABILIDADE
 └── Qualidade de respostas
 ```
 
-### 📋 O Padrão 7-Step (Núcleo do Protocolo)
+### 📋 O Octógono Zion (Núcleo do Protocolo)
 
-1. **ENTRADA**: Recepção e normalização
-2. **RASTREAMENTO**: Geração de IDs e evidências
-3. **VALIDAÇÃO**: Verificação de dados e regras
-4. **ROTEAMENTO**: Decisão de fluxo
-5. **LÓGICA**: Processamento principal com IA
-6. **REVALIDAÇÃO**: Quality gates
-7. **OUTPUT**: Resposta padronizada
+1. **RECEBE**: Recepção e normalização
+2. **RASTREIA**: Geração de IDs e evidências
+3. **VALIDA**: Verificação de dados e regras
+4. **ROTEIA**: Decisão de fluxo
+5. **PROCESSA**: Processamento principal com IA
+6. **AGREGA**: Consolidação de resultados
+7. **CONFIRMA**: Quality gates
+8. **ENTREGA**: Resposta padronizada
 
 ---
 
