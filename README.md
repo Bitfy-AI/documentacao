@@ -1,59 +1,84 @@
-# Metodologia Zion - Implementação Rápida de Chatbots No-Code com n8n
+# Protocolo de Agentes No-Code Zion (PANZ)
 
-## 🚀 Sobre a Metodologia
+<div align="center">
 
-A **Metodologia Zion** é um framework estruturado para auxiliar empresários e profissionais a implementar chatbots de forma rápida e eficiente utilizando n8n, uma plataforma no-code de automação.
+![Status](https://img.shields.io/badge/Status-Draft-yellow)
+![Versão](https://img.shields.io/badge/Versão-1.0.0-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-## 🎯 Objetivo
+**Padrão aberto para desenvolvimento de agentes conversacionais inteligentes com ferramentas no-code**
 
-Democratizar o acesso à tecnologia de chatbots, permitindo que empresas de todos os tamanhos possam:
-- Automatizar atendimento ao cliente
-- Otimizar processos internos
-- Melhorar a experiência do usuário
-- Reduzir custos operacionais
-- Escalar operações sem aumentar equipe
+[Documentação](./PROTOCOLO-ZION.md) • [Quick Start](#-quick-start) • [Exemplos](./exemplos) • [Comunidade](#-comunidade)
 
-## 📚 Estrutura da Documentação
+</div>
 
-### 1. [Introdução](./docs/01-introducao/)
-- O que é a Metodologia Zion
-- Por que n8n para chatbots
-- Benefícios do approach no-code
+## 🎯 O que é o PANZ?
 
-### 2. [Fundamentos](./docs/02-fundamentos/)
-- Conceitos básicos de chatbots
-- Introdução ao n8n
-- Arquitetura de soluções
+O **Protocolo de Agentes No-Code Zion (PANZ)** é um padrão aberto que democratiza o desenvolvimento de chatbots e agentes de IA, combinando:
 
-### 3. [Preparação](./docs/03-preparacao/)
-- Análise de requisitos
-- Mapeamento de fluxos conversacionais
-- Definição de personas e casos de uso
+- ✅ **Protocolo Técnico** - Especificações claras de arquitetura e comunicação
+- ✅ **Metodologia Prática** - Framework 7-Step Pattern para garantir qualidade
+- ✅ **Stack Open Source** - Ferramentas gratuitas (n8n, PostgreSQL, Langchain)
+- ✅ **Templates Prontos** - Acelere com workflows pré-construídos e testados
 
-### 4. [Implementação](./docs/04-implementacao/)
-- Configuração do ambiente
-- Criação de workflows
-- Integração com APIs e serviços
-- Testes e validação
+## 🚀 Por que usar o PANZ?
 
-### 5. [Casos de Uso](./docs/05-casos-de-uso/)
-- Atendimento ao cliente
-- Qualificação de leads
-- Agendamento automatizado
-- FAQ inteligente
-- Suporte técnico
+### Para Empresas
+- **80% menos custo** que desenvolvimento tradicional
+- **10x mais rápido** para implementar
+- **Sem dependência** de programadores
+- **Manutenção simplificada** por equipes internas
 
-### 6. [Boas Práticas](./docs/06-boas-praticas/)
-- Design conversacional
-- Tratamento de erros
-- Métricas e monitoramento
-- Segurança e privacidade
+### Para Implementadores
+- **Padrão consolidado** para todos os projetos
+- **Componentes reutilizáveis** entre clientes
+- **Observabilidade nativa** em todas implementações
+- **Comunidade ativa** para suporte
 
-### 7. [Recursos](./docs/07-recursos/)
-- Templates prontos
-- Bibliotecas de nodes
-- Integrações recomendadas
-- Ferramentas auxiliares
+## 🏗️ Arquitetura do Protocolo
+
+```mermaid
+graph TB
+    subgraph "Canais de Entrada"
+        WA[WhatsApp]
+        TG[Telegram]
+        WC[WebChat]
+    end
+
+    subgraph "Protocolo ZION"
+        N[n8n Orchestrator]
+        AI[AI Engine]
+        DB[(PostgreSQL)]
+        VDB[(Vector DB)]
+    end
+
+    subgraph "Integrações"
+        CRM[CRMs]
+        API[APIs]
+        ERP[ERPs]
+    end
+
+    WA & TG & WC --> N
+    N <--> AI
+    N <--> DB
+    AI <--> VDB
+    N --> CRM & API & ERP
+```
+
+## 📋 O Padrão 8-Step
+
+Toda implementação PANZ segue 8 passos obrigatórios com cores padronizadas no n8n:
+
+```
+1️⃣ RECEBE    🟩 → Recebe dados de múltiplas origens
+2️⃣ RASTREIA  🟨 → Gera IDs únicos e telemetria
+3️⃣ VALIDA    🟧 → Verifica dados e segurança
+4️⃣ ROTEIA    🟪 → Define estratégia de processamento
+5️⃣ PROCESSA  🟦 → Executa lógica principal com IA
+6️⃣ AGREGA    🟨 → Consolida resultados múltiplos
+7️⃣ CONFIRMA  🟧 → Quality gates e compliance
+8️⃣ ENTREGA   🟩 → Output final ao destino
+```
 
 ## 🛠️ Tecnologias Principais
 
