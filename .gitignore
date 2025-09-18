@@ -1,0 +1,72 @@
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs e Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node.js (caso use ferramentas Node)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Python (caso use scripts Python)
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+venv/
+env/
+.env
+
+# Temporários
+*.tmp
+*.temp
+*.log
+*.bak
+*.cache
+
+# Build e Distribuição
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# Documentação gerada
+_build/
+site/
+public/
+
+# Credenciais e Configurações Sensíveis
+.env
+.env.local
+.env.*.local
+config.json
+credentials.json
+secrets.yaml
+*.key
+*.pem
+
+# n8n específicos
+.n8n/
+n8n-backup/
+*.workflow.json.backup
+
+# Arquivos de teste
+test-output/
+coverage/
+.nyc_output/
+
+# Rascunhos e trabalho em progresso
+drafts/
+wip/
+*.draft.md
+*-draft.*
