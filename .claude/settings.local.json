@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/Windows Home/Documents/GitHub/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
