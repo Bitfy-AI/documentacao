@@ -4,63 +4,83 @@
 
 ```mermaid
 graph TB
-    subgraph "CAMADA 1: INTERFACE"
-        WA[WhatsApp API]
-        TG[Telegram Bot]
-        WC[WebChat]
-        DC[Discord/Slack]
-        EM[Email SMTP]
-        WH[Webhooks]
+    subgraph "🔵  CAMADA A: INTERFACE"
+        direction LR
+        WA[📱  WhatsApp<br/>API]
+        TG[💬  Telegram<br/>Bot]
+        WC[🌐  Web<br/>Chat]
+        DC[💻  Discord<br/>Slack]
+        EM[📧  Email<br/>SMTP]
+        WH[🔗  Web<br/>hooks]
     end
 
-    subgraph "CAMADA 2: PROCESSAMENTO"
-        FAC[Factory Pattern<br/>Normalizadores]
-        STEP[Octógono Zion<br/>Executor]
-        RT[Roteamento<br/>Inteligente]
+    subgraph "🟣  CAMADA B: NORMALIZAÇÃO"
+        direction LR
+        FAC[🏭  Padrão Factory<br/>Normalizadores]
+        NORM[📐  Padronização<br/>de Dados]
+        VAL[✅  Validação<br/>Estrutural]
     end
 
-    subgraph "CAMADA 3: INTELIGÊNCIA"
-        INT[Análise de<br/>Intenção]
-        LLM[Processamento<br/>LLM/IA]
-        KB[Base de<br/>Conhecimento]
-        DEC[Motor de<br/>Decisão]
+    subgraph "🟢  CAMADA C: PROCESSAMENTO"
+        direction TB
+        subgraph CORE["⚙️  Motor Principal"]
+            STEP[🔷  Octógono Zion<br/>Executor]
+            RT[🎯  Roteamento<br/>Inteligente]
+        end
+        subgraph AI["🤖  Inteligência"]
+            INT[🧠  Análise de<br/>Intenção]
+            LLM[🎭  Processamento<br/>LLM/IA]
+            KB[📚  Base de<br/>Conhecimento]
+            DEC[⚡  Motor de<br/>Decisão]
+        end
     end
 
-    subgraph "CAMADA 4: INTEGRAÇÃO"
-        API[APIs<br/>Externas]
-        DB[(PostgreSQL<br/>Database)]
-        VDB[(Vector DB<br/>Pinecone/Qdrant)]
-        LEG[Sistemas<br/>Legados]
+    subgraph "🟠  CAMADA D: INTEGRAÇÃO"
+        direction LR
+        API[🔌  APIs<br/>Externas]
+        DB[(🗄️  PostgreSQL<br/>Banco de Dados)]
+        VDB[(🧮  Banco Vetorial<br/>Pinecone/Qdrant)]
+        LEG[🏛️  Sistemas<br/>Legados]
     end
 
-    subgraph "CAMADA 5: OBSERVABILIDADE"
-        LOG[Logs<br/>Estruturados]
-        MET[Métricas<br/>Performance]
-        TRC[Rastreamento<br/>trace_id]
-        QLT[Quality<br/>Score]
+    subgraph "🔴  CAMADA E: OBSERVABILIDADE"
+        direction LR
+        LOG[📝  Logs<br/>Estruturados]
+        MET[📊  Métricas<br/>Desempenho]
+        TRC[🔍  Rastreamento<br/>trace_id]
+        QLT[⭐  Pontuação<br/>Qualidade]
     end
 
-    WA & TG & WC & DC & EM & WH --> FAC
-    FAC --> STEP
-    STEP --> RT
-    RT --> INT
-    INT --> LLM
-    LLM <--> KB
-    LLM --> DEC
-    DEC --> API & DB & VDB & LEG
+    %% Fluxo principal
+    WA & TG & WC & DC & EM & WH ==> FAC
+    FAC ==> NORM
+    NORM ==> VAL
+    VAL ==> STEP
+    STEP ==> RT
+    RT ==> INT
+    INT ==> LLM
+    LLM <==> KB
+    LLM ==> DEC
+    DEC ==> API & DB & VDB & LEG
 
+    %% Conexões de observabilidade
     STEP -.-> LOG
     STEP -.-> MET
     STEP -.-> TRC
     DEC -.-> QLT
 
-    style WA fill:#25D366
-    style TG fill:#0088cc
-    style FAC fill:#9B59B6
-    style STEP fill:#3498DB
-    style LLM fill:#E74C3C
-    style DB fill:#F39C12
-    style VDB fill:#16A085
+    %% Estilos por camada
+    classDef interfaceStyle fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
+    classDef normalStyle fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000
+    classDef processStyle fill:#e8f5e9,stroke:#388e3c,stroke-width:2px,color:#000
+    classDef integrationStyle fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#000
+    classDef observeStyle fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#000
+
+    class WA,TG,WC,DC,EM,WH interfaceStyle
+    class FAC,NORM,VAL normalStyle
+    class STEP,RT,INT,LLM,KB,DEC processStyle
+    class API,DB,VDB,LEG integrationStyle
+    class LOG,MET,TRC,QLT observeStyle
 ```
 
 ## 2. Fluxo do Padrão Octógono
@@ -68,35 +88,35 @@ graph TB
 ```mermaid
 flowchart LR
     subgraph "🟩 ENTRADA"
-        R[1. RECEBE]
+        R[RECEBE]
     end
 
     subgraph "🟨 RASTREAMENTO"
-        T[2. RASTREIA]
+        T[RASTREIA]
     end
 
     subgraph "🟧 VALIDAÇÃO"
-        V[3. VALIDA]
+        V[VALIDA]
     end
 
     subgraph "🟪 ESTRATÉGIA"
-        RO[4. ROTEIA]
+        RO[ROTEIA]
     end
 
     subgraph "🟦 PROCESSAMENTO"
-        P[5. PROCESSA]
+        P[PROCESSA]
     end
 
     subgraph "🟨 CONSOLIDAÇÃO"
-        A[6. AGREGA]
+        A[AGREGA]
     end
 
     subgraph "🟧 QUALIDADE"
-        C[7. CONFIRMA]
+        C[CONFIRMA]
     end
 
     subgraph "🟩 SAÍDA"
-        E[8. ENTREGA]
+        E[ENTREGA]
     end
 
     R --> T --> V --> RO --> P --> A --> C --> E
