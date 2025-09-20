@@ -143,13 +143,13 @@ Crie um README técnico explicando:
 
 ## 🏗️ FASE 1: CONSTANTES (8 arquivos)
 
-### ARQUIVO 006: Constantes dos 8-Steps
+### ARQUIVO 006: Constantes do Octógono
 
-**Caminho:** `protocolo/nomenclatura/constants/steps.js`
+**Caminho:** `protocolo/nomenclatura/constants/passos.js`
 
 **Instrução para o agente:**
 ```
-Crie constantes IMUTÁVEIS dos 8 steps do Protocolo ZION:
+Crie constantes IMUTÁVEIS dos 8 passos do Octógono Zion:
 1. RECEBE (REC) - Verde #27AE60 🟩
 2. RASTREIA (RAS) - Amarelo #F1C40F 🟨
 3. VALIDA (VAL) - Laranja #E67E22 🟧
@@ -159,14 +159,14 @@ Crie constantes IMUTÁVEIS dos 8 steps do Protocolo ZION:
 7. CONFIRMA (CON) - Laranja #E67E22 🟧
 8. ENTREGA (ENT) - Verde #27AE60 🟩
 
-Cada step deve ter: number, name, code, color, emoji, description
+Cada passo deve ter: number, name, code, color, emoji, description
 Use Object.freeze para imutabilidade
-Crie funções helper: getStepByNumber, getStepByCode, getAllSteps, validateStepName
+Crie funções helper: getPassoByNumber, getPassoByCode, getAllPassos, validatePassoName
 ```
 
 **Estrutura do objeto:**
 ```javascript
-STEP_1: {
+PASSO_1: {
   number: 1,
   name: 'RECEBE',
   code: 'REC',
@@ -281,7 +281,7 @@ Exemplo: SUP-VAL-001
 **Instrução para o agente:**
 ```
 Crie arquivo index.js que exporta todas as constantes:
-- Importar steps, domains, channels, variables, errors
+- Importar passos, domains, channels, variables, errors
 - Re-exportar tudo em um objeto organizado
 - Adicionar versão do sistema de constantes
 ```
@@ -311,16 +311,16 @@ Métodos:
 
 ---
 
-### ARQUIVO 013: Validador de Nome de Step
+### ARQUIVO 013: Validador de Nome de Passo
 
-**Caminho:** `protocolo/nomenclatura/validators/stepName.js`
+**Caminho:** `protocolo/nomenclatura/validators/passoName.js`
 
 **Instrução para o agente:**
 ```
-Crie classe StepNameValidator que:
+Crie classe PassoNameValidator que:
 - Valida padrão [NUM].[CODE]:[ACTION]
 - Verifica se número está entre 1-8
-- Verifica se código corresponde ao step correto
+- Verifica se código corresponde ao passo correto
 - Valida nome da ação (mínimo 3 caracteres)
 
 Exemplo válido: 1.REC:RecebeMensagem
@@ -548,11 +548,11 @@ Crie classe CaseConverter com métodos:
 **Instrução para o agente:**
 ```
 Crie template JSON de workflow n8n com:
-- 8 nodes representando os 8 steps
+- 8 nodes representando os 8 passos do Octógono
 - Nomes seguindo padrão [NUM].[CODE]:[ACTION]
 - Conexões entre os nodes
-- Webhook como entrada (step 1)
-- Response como saída (step 8)
+- Webhook como entrada (passo 1)
+- Response como saída (passo 8)
 - Posicionamento visual dos nodes
 ```
 
@@ -565,7 +565,7 @@ Crie template JSON de workflow n8n com:
 **Instrução para o agente:**
 ```
 Crie template focado em validação com:
-- Múltiplas validações no step 3
+- Múltiplas validações no passo 3
 - Roteamento baseado em validação
 - Error handling
 - Logs estruturados
@@ -599,7 +599,7 @@ Crie template YAML de configuração com:
 ```
 Crie suite de testes Jest para validadores:
 - Testes para WorkflowIdValidator
-- Testes para StepNameValidator
+- Testes para PassoNameValidator
 - Testes para VariableNameValidator
 - Casos válidos e inválidos
 - Edge cases
@@ -751,7 +751,7 @@ Crie documento com exemplos:
 **Instrução para o agente:**
 ```
 Crie FAQ respondendo:
-- Por que 8 steps são obrigatórios?
+- Por que 8 passos do Octógono são obrigatórios?
 - Como escolher domínio correto?
 - Quando usar subfunção?
 - Como debugar validações?

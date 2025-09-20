@@ -1,0 +1,1860 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Como iniciar\nChame esse fluxo alterando essa URL abaixo\n```\nhttps://webhook.domino.com/webhook/agents?connection={{ conexao }}&company={{ id da empresa no directus }}\n```\nNa pratica ela ficara assim quando substituido as informacoes: \n\n## Chatwoot\n```\nhttps://flows.nexus.bitfy.ai/webhook/agents?connection=chatwoot&company=b17a26f7-525e-47d4-950d-9a6a7b298dc8\n```\n\n## Evolution\n```\nhttps://flows.nexus.bitfy.ai/webhook/agents?connection=evolution&company=b17a26f7-525e-47d4-950d-9a6a7b298dc8\n```",
+        "height": 576,
+        "width": 1040,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -208,
+        -192
+      ],
+      "typeVersion": 1,
+      "id": "399ad505-52c6-44b5-91b0-f66acbe25605",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "### 1. (Inicio) Composicao\nJunta varios adaptadores e controladores para iniciar o sistema\n",
+        "height": 96,
+        "width": 432,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        400,
+        768
+      ],
+      "typeVersion": 1,
+      "id": "5cf8e5f9-2145-43a2-bd37-6e06139ea9cd",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7574f029-73bf-43e6-baf8-47864e1cb072",
+              "name": "type",
+              "value": "human",
+              "type": "string"
+            },
+            {
+              "id": "b6570dc1-1bb5-4d23-98fe-d13834e88134",
+              "name": "content",
+              "value": "={{ $('A:Recebe dados conexao').item.json.body.content }}",
+              "type": "string"
+            },
+            {
+              "id": "c0edc867-b709-4f02-a4ee-6d4e97d8bc74",
+              "name": "additional_kwargs",
+              "value": "{}",
+              "type": "object"
+            },
+            {
+              "id": "c7e71f11-08ae-49f3-9bea-462270d51c8f",
+              "name": "response_metadata",
+              "value": "{}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2448,
+        688
+      ],
+      "id": "8c15f88a-0839-4ce3-a6fd-4eb0c6d52c59",
+      "name": "Mensagens"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "84ZeQA0cA24Umeli",
+          "mode": "list",
+          "cachedResultName": "[Jana] (Banco) Atualizar"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "fields": "={{ $json }}",
+            "table": "messages",
+            "connection": "={{ $('A:Recebe dados conexao').item.json.query.connection }}",
+            "id": "={{ $('A:Recebe dados conexao').item.json.query.company }}",
+            "search": "session_id"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "connection",
+              "displayName": "connection",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "table",
+              "displayName": "table",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "search",
+              "displayName": "search",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "fields",
+              "displayName": "fields",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "object"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2672,
+        688
+      ],
+      "id": "68a4cb1f-778c-4f3d-b95d-38da03a92e09",
+      "name": "C2:MensagemHistorico",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "# Responsabilidade\n##\n* Gera a resposta com base em um input\n* Utiliza ferramentas externas ou internas para gestão",
+        "height": 400,
+        "width": 640
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        864,
+        -192
+      ],
+      "typeVersion": 1,
+      "id": "3b117440-f5fd-4741-bc13-e76a6e8610f5",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "### 3. VALIDA",
+        "height": 1120,
+        "width": 192,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1312,
+        224
+      ],
+      "typeVersion": 1,
+      "id": "163220a6-0a85-4f2e-8665-830dbb1014c5",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "### 5. PROCESSA",
+        "height": 1536,
+        "width": 1824,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1744,
+        -192
+      ],
+      "typeVersion": 1,
+      "id": "45484c61-7f43-46f6-9b1e-fa192c854cc9",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "### 6. AGREGA",
+        "height": 1536,
+        "width": 192,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3584,
+        -192
+      ],
+      "typeVersion": 1,
+      "id": "74534629-86bb-49a9-ab31-0aed2640d694",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "content": "### 8. ENTREGA",
+        "height": 1536,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        4016,
+        -192
+      ],
+      "typeVersion": 1,
+      "id": "46c0715e-44da-4611-866b-daebbc8603e3",
+      "name": "Sticky Note15"
+    },
+    {
+      "parameters": {
+        "content": "### 2. RASTREIA\n",
+        "height": 1120,
+        "width": 192,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1088,
+        224
+      ],
+      "typeVersion": 1,
+      "id": "5426a6bf-1be6-4050-9735-9f311f369f52",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "### 4. ROTEIA",
+        "height": 1536,
+        "width": 176,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1536,
+        -192
+      ],
+      "typeVersion": 1,
+      "id": "0096950b-cf7f-4ec1-9807-944385387cca",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "content": "### 1. RECEBE\n- [x] Workflow\n- [ ] Webhook\n- [ ] Rabbit\n- [ ] Evaluations",
+        "height": 1120,
+        "width": 192,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        864,
+        224
+      ],
+      "typeVersion": 1,
+      "id": "8baefd76-c826-44d2-8cc6-2cfdbd25b70c",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "content": "### 7. CONFIRMA",
+        "height": 1536,
+        "width": 208,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3792,
+        -192
+      ],
+      "typeVersion": 1,
+      "id": "13d38f44-1457-40fb-883b-37184816f062",
+      "name": "Sticky Note11",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "bbe8ef74-1952-468d-a67e-5cfc0dd136b2",
+              "leftValue": "={{ $json.query }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1344,
+        752
+      ],
+      "id": "d54c11f5-fb37-42e5-bdbd-2f4914f6dc41",
+      "name": "VAL:ParametrosValidos"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('A:Recebe dados conexao').item.json.query }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "object",
+                      "operation": "notEmpty",
+                      "singleValue": true
+                    },
+                    "id": "73f98037-c185-45f3-bd2e-7baf254cea7d"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "query"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2e5ce96d-8df7-4488-a150-c286168d2aa5",
+                    "leftValue": "={{ $('A:Recebe dados conexao').item.json.params }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "object",
+                      "operation": "notEmpty",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "params"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1552,
+        656
+      ],
+      "id": "b9c68928-8da6-42a5-8b3d-28dba5b674e4",
+      "name": "ROT:SelecionaEstrategiaQuery"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        3152,
+        480
+      ],
+      "id": "07d85076-b918-4e68-84f4-10891a5721c2",
+      "name": "AGG:UnificaMidia"
+    },
+    {
+      "parameters": {
+        "errorMessage": "=A Jana nao funciona mais com params, somente com query."
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1792,
+        752
+      ],
+      "id": "ff971b9c-459e-48bc-a39c-8d9120aaadef",
+      "name": "ERR:Parametros"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "ebf5092a-1fed-421f-b08f-8a11ec910e5e",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3824,
+        480
+      ],
+      "id": "8d9c76ee-24e3-4853-9c15-692fa22d7a1a",
+      "name": "VAL:Dados Validos Processador"
+    },
+    {
+      "parameters": {
+        "errorMessage": "Invalido"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        4080,
+        592
+      ],
+      "id": "09818117-0982-40ff-b2a9-467e742a14ca",
+      "name": "ERR: Invalido"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a58af3b2-da9a-49ab-9f95-6534bc632d2b",
+              "leftValue": "={{ $('B:NOR:Conexao > funcionalidades').item.json.agent.respond }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "2fc8020d-b78a-4c61-85e6-6e0d5a4466ea",
+              "leftValue": "={{ $('B:NOR:Conexao > funcionalidades').item.json.conversation.group }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "06646d1d-011d-4ac2-9946-06d45933d05a",
+              "leftValue": "={{ $('B:NOR:Conexao > funcionalidades').item.json.conversation.status }}",
+              "rightValue": "pending",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2224,
+        544
+      ],
+      "id": "ec47895c-6387-4916-9fbf-ab8ffa9f74c8",
+      "name": "VAL:Agente deve continuar?",
+      "notesInFlow": true,
+      "alwaysOutputData": false,
+      "executeOnce": false,
+      "notes": "Mensagem é minha"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "df56174c-89e2-44ad-bdfa-762db3e458d6",
+              "leftValue": "={{ $('B:NOR:Conexao > sistema').item.json.message.collumn.file.url }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "15302abf-ea72-43f5-bf94-55b31c174da8",
+              "leftValue": "={{ $('B:NOR:Conexao > sistema').item.json.message.collumn.file.base64 }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2448,
+        464
+      ],
+      "id": "92625e42-1694-4123-a030-ff4987fc7e08",
+      "name": "VAL:Agente deve processar midia?"
+    },
+    {
+      "parameters": {
+        "errorMessage": "=Conflito de parâmetros: connection e company não foram inseridos ou identificados no webhook."
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1552,
+        864
+      ],
+      "id": "a3fd384a-ba99-4af2-b763-bede874083fc",
+      "name": "ERR: Conexao inexistente"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "agents/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        896,
+        752
+      ],
+      "id": "4d70a80e-ba87-4be2-9ced-d9ea0dcf1a7d",
+      "name": "A:Recebe dados conexao",
+      "webhookId": "854abc64-c10f-47fd-bde0-08bb96e74d5f",
+      "notesInFlow": true,
+      "notes": "Recebe de conexoes"
+    },
+    {
+      "parameters": {
+        "dataToSave": {
+          "values": [
+            {
+              "key": "control",
+              "value": "={{ $execution.id }}"
+            },
+            {
+              "key": "company",
+              "value": "={{ $json.params.company || $json.query.company }}"
+            },
+            {
+              "key": "connection",
+              "value": "={{ $json.params.connection || $json.query.connection}}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executionData",
+      "typeVersion": 1.1,
+      "position": [
+        1120,
+        752
+      ],
+      "id": "ff8d35b7-b165-4709-8c05-d09e56bb9022",
+      "name": "RAS:Execução tratador",
+      "notesInFlow": true,
+      "notes": "Interliga execuções"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "pbb2dCaOXY6t8zGw",
+          "mode": "list",
+          "cachedResultName": "[Jana] (Tradutor) Midias"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "file": "={{ $('B:NOR:Conexao > sistema').item.json.message.collumn.file }}",
+            "integrations": "={{ $json.data }}",
+            "control": "={{ $execution.id }}"
+          },
+          "matchingColumns": [
+            "file"
+          ],
+          "schema": [
+            {
+              "id": "integrations",
+              "displayName": "integrations",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "array",
+              "removed": false
+            },
+            {
+              "id": "file",
+              "displayName": "file",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "object",
+              "removed": false
+            },
+            {
+              "id": "control",
+              "displayName": "control",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2896,
+        384
+      ],
+      "id": "ea434589-943f-4e46-b79b-4b64f6f07bdc",
+      "name": "E:CNV:Converte midia em texto",
+      "notesInFlow": true,
+      "notes": "Conteúdo de mídias"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "Krdi6CaDNjI1Wtln",
+          "mode": "list",
+          "cachedResultName": "[Jana] (Adaptador) Buscas no banco interno"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "body": "={{ $('A:Recebe dados conexao').item.json.body }}",
+            "company": "={{ $('A:Recebe dados conexao').first().json.query.company }}",
+            "connection": "={{ $('A:Recebe dados conexao').first().json.query.connection }}",
+            "control": "={{ $execution.id }}",
+            "logs": false
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "logs",
+              "displayName": "logs",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "boolean",
+              "removed": false
+            },
+            {
+              "id": "body",
+              "displayName": "body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "object"
+            },
+            {
+              "id": "company",
+              "displayName": "company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "connection",
+              "displayName": "connection",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "control",
+              "displayName": "control",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1792,
+        544
+      ],
+      "id": "df8cddff-01b9-4746-bb64-76e3aef91188",
+      "name": "B:NOR:Conexao > sistema",
+      "notesInFlow": true,
+      "notes": "Monta o body pra tudo no sistema"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "G5zdCmuMXFNzP0aq",
+          "mode": "list",
+          "cachedResultName": "[Jana] (Adaptador) Funcionalidades"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "connection": "={{ $('A:Recebe dados conexao').first().json.query.connection }}",
+            "body": "={{ $('A:Recebe dados conexao').first().json.body }}",
+            "control": "={{ $execution.id }}"
+          },
+          "matchingColumns": [
+            "message_collumn_content",
+            "execution_connection_firstItem",
+            "conversation_id_firstItem",
+            "message_collumn_fromMe_firstItem"
+          ],
+          "schema": [
+            {
+              "id": "control",
+              "displayName": "control",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "connection",
+              "displayName": "connection",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "body",
+              "displayName": "body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "object",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2016,
+        544
+      ],
+      "name": "B:NOR:Conexao > funcionalidades",
+      "id": "b156bb28-ee6c-4519-9b4a-02f4f909fa97",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "rGrUV2QsLU9eCkoP",
+          "mode": "list",
+          "cachedResultName": "[Jana] (Banco) Buscar"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "control": "={{ $execution.id }}",
+            "sql": "=SELECT \n    i.service, i.address, i.token\nFROM companies_integrations cpin\nJOIN integrations i \n  ON cpin.integrations_id = i.id\nWHERE cpin.companies_id = '{{ $('A:Recebe dados conexao').item.json.query.company }}'",
+            "errorWhenEmpty": true
+          },
+          "matchingColumns": [
+            "connection"
+          ],
+          "schema": [
+            {
+              "id": "errorWhenEmpty",
+              "displayName": "errorWhenEmpty",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "boolean",
+              "removed": false
+            },
+            {
+              "id": "limit",
+              "displayName": "limit",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number",
+              "removed": true
+            },
+            {
+              "id": "table",
+              "displayName": "table",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "order",
+              "displayName": "order",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "connection",
+              "displayName": "connection",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "sql",
+              "displayName": "sql",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "control",
+              "displayName": "control",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2672,
+        384
+      ],
+      "id": "8a0faac6-891e-4b0b-9d7c-cee501cd4be4",
+      "name": "E:INT:Buscar servicos no banco",
+      "notesInFlow": true,
+      "notes": "Padroniza saida"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "Z2OOYrooGM0NMOqz",
+          "mode": "list",
+          "cachedResultName": "debouncer-message-stack-includer"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('B:NOR:Conexao > sistema').item.json.contact.id }}",
+            "text": "=[{{ $now.toFormat('hh:mm:ss') }}][Texto]: {{ $('B:NOR:Conexao > sistema').item.json.message.collumn.content || \"Nenhum texto enviado.\" }}\n{{ $json.context || \"\" }}",
+            "wait": 10,
+            "action": "add"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "action",
+              "displayName": "action",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "text",
+              "displayName": "text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "wait",
+              "displayName": "wait",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        3616,
+        480
+      ],
+      "id": "35c956f9-4a54-4645-9f16-2ba2c52a70c7",
+      "name": "E:AGG:Debouncer"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "rGrUV2QsLU9eCkoP",
+          "mode": "list",
+          "cachedResultName": "[Jana] (Banco) Buscar"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "table": "agents.companies_id",
+            "id": "={{ $('A:Recebe dados conexao').item.json.query.company }}",
+            "limit": 1,
+            "connection": "={{ $('A:Recebe dados conexao').item.json.query.connection }}",
+            "control": "={{ $workflow.id }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "errorWhenEmpty",
+              "displayName": "errorWhenEmpty",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "boolean",
+              "removed": false
+            },
+            {
+              "id": "limit",
+              "displayName": "limit",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number",
+              "removed": false
+            },
+            {
+              "id": "table",
+              "displayName": "table",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "order",
+              "displayName": "order",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "connection",
+              "displayName": "connection",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "sql",
+              "displayName": "sql",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "control",
+              "displayName": "control",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        3392,
+        480
+      ],
+      "id": "05767787-562a-4bb5-ad74-b4dae842f175",
+      "name": "E:BCO:Busca entidade agente",
+      "notesInFlow": true,
+      "executeOnce": false,
+      "notes": "Filtro em tabela conjunta"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "yKZ3SmJXgtveMZGt",
+          "mode": "list",
+          "cachedResultName": "[Jana] (Conversacional) Processador"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "company": "={{ $('B:NOR:Conexao > sistema').item.json.company }}",
+            "contact": "={{ $('B:NOR:Conexao > sistema').item.json.contact }}",
+            "conversation": "={{ $('B:NOR:Conexao > sistema').item.json.conversation }}",
+            "message": "={{ $('B:NOR:Conexao > sistema').item.json.message }}",
+            "inbox": "={{ $('B:NOR:Conexao > sistema').item.json.inbox }}",
+            "control": "={{ $execution.id }}",
+            "connection": "={{ $('A:Recebe dados conexao').item.json.query.connection }}",
+            "custom": "={{ $('B:NOR:Conexao > sistema').item.json.custom }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "connection",
+              "displayName": "connection",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "company",
+              "displayName": "company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "object",
+              "removed": false
+            },
+            {
+              "id": "contact",
+              "displayName": "contact",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "object",
+              "removed": false
+            },
+            {
+              "id": "conversation",
+              "displayName": "conversation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "object",
+              "removed": false
+            },
+            {
+              "id": "message",
+              "displayName": "message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "object",
+              "removed": false
+            },
+            {
+              "id": "inbox",
+              "displayName": "inbox",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "object",
+              "removed": false
+            },
+            {
+              "id": "custom",
+              "displayName": "custom",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "object",
+              "removed": false
+            },
+            {
+              "id": "control",
+              "displayName": "control",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        4080,
+        368
+      ],
+      "id": "7cf33b9c-768c-4681-a9d9-c64c09fc0e3b",
+      "name": "C:CMP:Executa motor de resposta",
+      "notesInFlow": true,
+      "notes": "Entrega para C3"
+    }
+  ],
+  "connections": {
+    "Mensagens": {
+      "main": [
+        [
+          {
+            "node": "C2:MensagemHistorico",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VAL:ParametrosValidos": {
+      "main": [
+        [
+          {
+            "node": "ROT:SelecionaEstrategiaQuery",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERR: Conexao inexistente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ROT:SelecionaEstrategiaQuery": {
+      "main": [
+        [
+          {
+            "node": "B:NOR:Conexao > sistema",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERR:Parametros",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AGG:UnificaMidia": {
+      "main": [
+        [
+          {
+            "node": "E:BCO:Busca entidade agente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VAL:Dados Validos Processador": {
+      "main": [
+        [
+          {
+            "node": "C:CMP:Executa motor de resposta",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERR: Invalido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VAL:Agente deve continuar?": {
+      "main": [
+        [
+          {
+            "node": "VAL:Agente deve processar midia?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mensagens",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VAL:Agente deve processar midia?": {
+      "main": [
+        [
+          {
+            "node": "E:INT:Buscar servicos no banco",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AGG:UnificaMidia",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "A:Recebe dados conexao": {
+      "main": [
+        [
+          {
+            "node": "RAS:Execução tratador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RAS:Execução tratador": {
+      "main": [
+        [
+          {
+            "node": "VAL:ParametrosValidos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "E:CNV:Converte midia em texto": {
+      "main": [
+        [
+          {
+            "node": "AGG:UnificaMidia",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "B:NOR:Conexao > sistema": {
+      "main": [
+        [
+          {
+            "node": "B:NOR:Conexao > funcionalidades",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "B:NOR:Conexao > funcionalidades": {
+      "main": [
+        [
+          {
+            "node": "VAL:Agente deve continuar?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "E:INT:Buscar servicos no banco": {
+      "main": [
+        [
+          {
+            "node": "E:CNV:Converte midia em texto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "E:AGG:Debouncer": {
+      "main": [
+        [
+          {
+            "node": "VAL:Dados Validos Processador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "E:BCO:Busca entidade agente": {
+      "main": [
+        [
+          {
+            "node": "E:AGG:Debouncer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "A:Recebe dados conexao": [
+      {
+        "headers": {
+          "host": "webhook.123atendi.com.br",
+          "user-agent": "axios/0.21.4",
+          "content-length": "7712",
+          "accept": "application/json, text/plain, */*",
+          "content-type": "application/json",
+          "x-forwarded-for": "137.131.253.176",
+          "x-forwarded-host": "webhook.123atendi.com.br",
+          "x-forwarded-port": "443",
+          "x-forwarded-proto": "https",
+          "x-forwarded-server": "69db3a2323da",
+          "x-real-ip": "137.131.253.176",
+          "accept-encoding": "gzip"
+        },
+        "params": {},
+        "query": {
+          "connection": "clickmassa",
+          "company": "b17a26f7-525e-47d4-950d-9a6a7b298dc8"
+        },
+        "body": {
+          "message": {
+            "mediaName": "0505dfd1-68a2-4259-9310-9f137f51da10/c50f7ca9-7643-4daf-a0b1-ea79958a278a_13092025041253650_0505dfd1-68a2-4259-9310-9f137f51da10_kynnjv.ogg-converted.mp3",
+            "mediaUrl": "https://axdwcdcrq2iy.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axdwcdcrq2iy/b/enterprise-storage-01/o/enterprise-storage-01/0505dfd1-68a2-4259-9310-9f137f51da10/c50f7ca9-7643-4daf-a0b1-ea79958a278a_13092025041253650_0505dfd1-68a2-4259-9310-9f137f51da10_kynnjv.ogg-converted.mp3",
+            "msgCreatedAt": "2025-09-13T04:12:53.933Z",
+            "id": "26a85190-6dda-4fcb-b025-ba9793a3a4f0",
+            "ack": 0,
+            "wabaMediaId": null,
+            "isDeleted": false,
+            "userId": null,
+            "scheduleDate": null,
+            "sendType": null,
+            "note": false,
+            "importStatus": null,
+            "isTransfer": false,
+            "params": null,
+            "templateMediaId": null,
+            "typeTemplate": null,
+            "templateId": null,
+            "destinationUserId": null,
+            "destinationQueueId": null,
+            "body": "",
+            "fromMe": false,
+            "tenantId": 1,
+            "ticketId": 14494,
+            "contactId": 45109,
+            "read": false,
+            "messageId": "wamid.HBgMNTU1Mzg0Mzk2MTc0FQIAEhgWM0VCMERCN0RGNjM2NDA1MTRCQzM3MAA=",
+            "quotedMsgId": null,
+            "mediaType": "audio",
+            "status": "received",
+            "tenantUid": "0505dfd1-68a2-4259-9310-9f137f51da10",
+            "isObjectStorage": true,
+            "timestamp": "1757736770",
+            "raw": {
+              "from": "555384396174",
+              "id": "wamid.HBgMNTU1Mzg0Mzk2MTc0FQIAEhgWM0VCMERCN0RGNjM2NDA1MTRCQzM3MAA=",
+              "timestamp": "1757736770",
+              "type": "audio",
+              "audio": {
+                "mime_type": "audio/ogg; codecs=opus",
+                "sha256": "7pXo87p3mhISTk+os5j91phorTJfQtH4hg2HSFFxhCk=",
+                "id": "1328190058814502",
+                "voice": true
+              }
+            },
+            "broadcast": null,
+            "originalName": "c50f7ca9-7643-4daf-a0b1-ea79958a278a.ogg",
+            "isDownload": true,
+            "updatedAt": "2025-09-13T04:12:53.933Z",
+            "createdAt": "2025-09-13T04:12:53.933Z",
+            "idFront": null,
+            "caption": null,
+            "size": 0,
+            "previousBody": null,
+            "externalKey": null,
+            "code": null,
+            "ticket": {
+              "id": 14494,
+              "status": "pending",
+              "unreadMessages": 5,
+              "lastMessage": "teste",
+              "firstMessage": "Oi",
+              "channel": "waba",
+              "answered": false,
+              "isGroup": false,
+              "isActiveDemand": false,
+              "isCreatedAPI": false,
+              "lastInteractionBot": null,
+              "lastOutOfHoursMessage": null,
+              "lastOutOfAbsenseMessage": null,
+              "origem": "C",
+              "botRetries": 0,
+              "closedAt": null,
+              "lastMessageAt": "1757736773724",
+              "startedAttendanceAt": null,
+              "userId": null,
+              "contactId": 45109,
+              "whatsappId": 15,
+              "promptId": null,
+              "autoReplyId": null,
+              "stepAutoReplyId": null,
+              "chatFlowId": null,
+              "stepChatFlow": null,
+              "queueId": 21,
+              "closingReasonId": null,
+              "tenantId": 1,
+              "isCreatedPush": false,
+              "apiConfig": {
+                "id": "cdd352a5-b614-4c75-bff3-a889ead31af5",
+                "name": "Jana 4.1",
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRJZCI6MSwicHJvZmlsZSI6ImFkbWluIiwic2Vzc2lvbklkIjoxNSwiY2hhbm5lbFR5cGUiOiJ3YWJhIiwiaWF0IjoxNzU3NjI4NTY5LCJleHAiOjE4MjA3MDA1Njl9.tZYLC7uKQo9NGRRlseHadcAF5fGxOu9N1LOege2haEo",
+                "userId": 1,
+                "queueId": null,
+                "isActive": true,
+                "tenantId": 1,
+                "authToken": null,
+                "createdAt": "2025-09-11T22:09:29.044Z",
+                "sessionId": 15,
+                "updatedAt": "2025-09-12T22:18:38.368Z",
+                "webhookUrl": "https://webhook.123atendi.com.br/webhook/otto/clickmassa/91e1f8fc-b372-4d71-81f9-a59c948630d5",
+                "isNewTicket": false,
+                "isAckMessage": false,
+                "isNewContact": false,
+                "isNewMessage": true,
+                "ticketAction": "OT",
+                "isOpportunity": false,
+                "redirectUserId": null,
+                "isStartedTicket": false,
+                "isUpdateContact": false,
+                "isFinishedTicket": false,
+                "isUpdateOnTicket": false,
+                "urlMessageStatus": null,
+                "urlServiceStatus": null,
+                "isTransferOfTicket": false,
+                "isConnectionStatusUpdate": false,
+                "isFinishedTicketHistoricMessages": false
+              },
+              "variables": {
+                "extrasAPI": {
+                  "isForceTicketToDepartment": false,
+                  "isForceTicketToClosed": false,
+                  "isForceTicketToUser": false
+                }
+              },
+              "externalKey": "1234",
+              "isFixed": false,
+              "contactFunnelId": null,
+              "unread": false,
+              "timestamp": "1757823173",
+              "slaTime": null,
+              "saleValue": null,
+              "sentiment": null,
+              "sentimentNote": null,
+              "createdAt": "2025-09-12T22:18:46.889Z",
+              "updatedAt": "2025-09-13T04:12:53.730Z",
+              "contact": {
+                "id": 45109,
+                "name": "Gabriel",
+                "number": "555384396174",
+                "lid": "91860894761135",
+                "isNumber": true,
+                "email": null,
+                "profilePicUrl": "https://pps.whatsapp.net/v/t61.24694-24/418951196_1057207745488813_7197493298900838126_n.jpg?ccb=11-4&oh=01_Q5Aa2gGZQbY_lchQzm2oyBxROu731lC_F71eXo2iv6nKg1rgnQ&oe=68D15070&_nc_sid=5e03e0&_nc_cat=100",
+                "pushname": null,
+                "observations": null,
+                "channel": "whatsapp",
+                "isUser": false,
+                "isWAContact": false,
+                "isGroup": false,
+                "deletedAt": null,
+                "negotiatedValue": null,
+                "leadStatusId": null,
+                "leadOriginId": null,
+                "queueId": null,
+                "tenantId": 1,
+                "customFields": {},
+                "tags": [],
+                "firstConnection": 2,
+                "createdAt": "2025-09-10T14:52:26.034Z",
+                "updatedAt": "2025-09-12T14:23:02.603Z",
+                "extraInfo": [],
+                "leadStatus": null,
+                "leadOrigin": null,
+                "wallets": [],
+                "firstConnectionModel": {
+                  "UrlWabaWebHook": "https://enterprise-290api.123atendi.com.br/wabahooks/null/null",
+                  "UrlMessengerWebHook": "https://enterprise-290api.123atendi.com.br/fb-messenger-hooks/null",
+                  "id": 2,
+                  "name": "Gabriel Corporativo",
+                  "session": "",
+                  "qrcode": "",
+                  "status": "CONNECTED",
+                  "battery": null,
+                  "plugged": null,
+                  "isActive": true,
+                  "enableSentimentAnalysis": false,
+                  "disableBotAfterAbsence": true,
+                  "refuseComments": false,
+                  "isRejectCall": false,
+                  "callRejectedMessage": null,
+                  "isDeleted": false,
+                  "retries": 0,
+                  "pid": null,
+                  "isDefault": false,
+                  "monitoring": true,
+                  "archiveChat": false,
+                  "remoteAuth": false,
+                  "tokenTelegram": null,
+                  "instagramUser": null,
+                  "instagramKey": null,
+                  "fbPageId": null,
+                  "phoneId": null,
+                  "fbObject": null,
+                  "url": "https://wa-02-go.clickmassa.com.br",
+                  "container": "wa-02-go",
+                  "type": "whatsapp",
+                  "restartAt": null,
+                  "number": "555391847557",
+                  "minutesInactivity": 0,
+                  "phone": null,
+                  "balance": null,
+                  "tenantId": 1,
+                  "wabaBSP": null,
+                  "provider": "baileys",
+                  "tokenAPI": null,
+                  "uid": "88290884-a518-448f-bb1d-e7e77d805919",
+                  "tokenHook": null,
+                  "originalType": null,
+                  "editedAt": null,
+                  "businessHours": [
+                    {
+                      "day": 0,
+                      "hr1": "08:00",
+                      "hr2": "12:00",
+                      "hr3": "14:00",
+                      "hr4": "18:00",
+                      "type": "O",
+                      "label": "Domingo"
+                    },
+                    {
+                      "day": 1,
+                      "hr1": "08:00",
+                      "hr2": "12:00",
+                      "hr3": "14:00",
+                      "hr4": "18:00",
+                      "type": "O",
+                      "label": "Segunda-Feira"
+                    },
+                    {
+                      "day": 2,
+                      "hr1": "08:00",
+                      "hr2": "12:00",
+                      "hr3": "14:00",
+                      "hr4": "18:00",
+                      "type": "O",
+                      "label": "Terça-Feira"
+                    },
+                    {
+                      "day": 3,
+                      "hr1": "08:00",
+                      "hr2": "12:00",
+                      "hr3": "14:00",
+                      "hr4": "18:00",
+                      "type": "O",
+                      "label": "Quarta-Feira"
+                    },
+                    {
+                      "day": 4,
+                      "hr1": "08:00",
+                      "hr2": "12:00",
+                      "hr3": "14:00",
+                      "hr4": "18:00",
+                      "type": "O",
+                      "label": "Quinta-Feira"
+                    },
+                    {
+                      "day": 5,
+                      "hr1": "08:00",
+                      "hr2": "12:00",
+                      "hr3": "14:00",
+                      "hr4": "18:00",
+                      "type": "O",
+                      "label": "Sexta-Feira"
+                    },
+                    {
+                      "day": 6,
+                      "hr1": "08:00",
+                      "hr2": "12:00",
+                      "hr3": "14:00",
+                      "hr4": "18:00",
+                      "type": "O",
+                      "label": "Sábado"
+                    }
+                  ],
+                  "messageBusinessHours": null,
+                  "enableActiveSearchControl": false,
+                  "activeSearchLimit": 30,
+                  "currentAmountOfActiveSearch": 0,
+                  "createdAt": "2025-06-06T13:46:44.720Z",
+                  "updatedAt": "2025-07-14T16:57:28.210Z",
+                  "chatFlowId": null,
+                  "inactivityClosingReasonId": null,
+                  "defaultQueueId": 12,
+                  "promptId": null
+                }
+              },
+              "user": null,
+              "whatsapp": {
+                "id": 15,
+                "name": "Atendimento 123 Coexistencia",
+                "type": "waba",
+                "originalType": null,
+                "editedAt": null
+              },
+              "queue": {
+                "id": 21,
+                "queue": "👩‍💻Atendimento",
+                "isActive": true,
+                "userId": 2,
+                "tenantId": 1,
+                "messageDefaultContact": null,
+                "createdAt": "2025-07-13T19:35:42.181Z",
+                "updatedAt": "2025-07-13T19:35:42.181Z"
+              }
+            }
+          },
+          "tenantId": 1,
+          "sessionId": 15,
+          "config": {
+            "id": "cdd352a5-b614-4c75-bff3-a889ead31af5",
+            "sessionId": 15,
+            "name": "Jana 4.1",
+            "isActive": true,
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRJZCI6MSwicHJvZmlsZSI6ImFkbWluIiwic2Vzc2lvbklkIjoxNSwiY2hhbm5lbFR5cGUiOiJ3YWJhIiwiaWF0IjoxNzU3NjI4NTY5LCJleHAiOjE4MjA3MDA1Njl9.tZYLC7uKQo9NGRRlseHadcAF5fGxOu9N1LOege2haEo",
+            "authToken": null,
+            "urlServiceStatus": null,
+            "urlMessageStatus": null,
+            "ticketAction": "OT",
+            "queueId": null,
+            "userId": 1,
+            "createdAt": "2025-09-11T22:09:29.044Z",
+            "updatedAt": "2025-09-12T22:18:38.368Z",
+            "tenantId": 1,
+            "isNewTicket": false,
+            "isFinishedTicket": false,
+            "isFinishedTicketHistoricMessages": false,
+            "isStartedTicket": false,
+            "isUpdateOnTicket": false,
+            "isTransferOfTicket": false,
+            "isNewMessage": true,
+            "isAckMessage": false,
+            "isNewContact": false,
+            "isUpdateContact": false,
+            "isConnectionStatusUpdate": false,
+            "isOpportunity": false,
+            "webhookUrl": "https://webhook.123atendi.com.br/webhook/otto/clickmassa/91e1f8fc-b372-4d71-81f9-a59c948630d5"
+          },
+          "event": "NewMessage"
+        },
+        "webhookUrl": "https://webhook.123atendi.com.br/webhook/otto/:connection/:company",
+        "executionMode": "production"
+      }
+    ]
+  },
+  "meta": {
+    "instanceId": "13e69768d9105474f419387ffa19b4983ca3540caed4fb88ead28d7a04e5c816"
+  }
+}

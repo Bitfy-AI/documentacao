@@ -10,7 +10,7 @@
 
 ## 🎯 VISÃO GERAL
 
-Esta especificação define critérios objetivos, métricas quantitativas e thresholds para **Quality Gates** obrigatórios em cada step do protocolo ZION, com foco especial no **Step 7 (CONFIRMA)**.
+Esta especificação define critérios objetivos, métricas quantitativas e thresholds para **Quality Gates** obrigatórios em cada passo do Octógono Zion, com foco especial no **Passo 7 (CONFIRMA)**.
 
 ### Problema Resolvido
 
@@ -22,8 +22,8 @@ Esta especificação define critérios objetivos, métricas quantitativas e thre
 ```mermaid
 graph TB
     subgraph "VALIDATION FORTRESS"
-        QG1[Step Quality Gates<br/>Steps 1-8]
-        QG2[Cross-Step Gates<br/>End-to-End]
+        QG1[Octógono Quality Gates<br/>Passos 1-8]
+        QG2[Cross-Passo Gates<br/>End-to-End]
         QG3[Business Gates<br/>SLA & Compliance]
         QG4[Security Gates<br/>LGPD & Auth]
     end
@@ -47,9 +47,9 @@ graph TB
 
 ---
 
-## 📊 QUALITY GATES POR STEP
+## 📊 QUALITY GATES POR PASSO DO OCTÓGONO
 
-### Step 1: RECEBE 🟩
+### Passo 1: RECEBE 🟩
 
 ```yaml
 Métricas Obrigatórias:
@@ -93,7 +93,7 @@ SLA:
   - Disponibilidade mínima: 99.9%
 ```
 
-### Step 2: RASTREIA 🟨
+### Passo 2: RASTREIA 🟨
 
 ```yaml
 Métricas Obrigatórias:
@@ -137,7 +137,7 @@ SLA:
   - Disponibilidade mínima: 99.95%
 ```
 
-### Step 3: VALIDA 🟧
+### Passo 3: VALIDA 🟧
 
 ```yaml
 Métricas Obrigatórias:
@@ -181,7 +181,7 @@ SLA:
   - Disponibilidade mínima: 99.5%
 ```
 
-### Step 4: ROTEIA 🟪
+### Passo 4: ROTEIA 🟪
 
 ```yaml
 Métricas Obrigatórias:
@@ -225,7 +225,7 @@ SLA:
   - Disponibilidade mínima: 99.8%
 ```
 
-### Step 5: PROCESSA 🟦
+### Passo 5: PROCESSA 🟦
 
 ```yaml
 Métricas Obrigatórias:
@@ -269,7 +269,7 @@ SLA:
   - Disponibilidade mínima: 99.0%
 ```
 
-### Step 6: AGREGA 🟨
+### Passo 6: AGREGA 🟨
 
 ```yaml
 Métricas Obrigatórias:
@@ -313,7 +313,7 @@ SLA:
   - Disponibilidade mínima: 99.5%
 ```
 
-### **Step 7: CONFIRMA 🟧 (QUALITY GATES FINAIS)**
+### **Passo 7: CONFIRMA 🟧 (QUALITY GATES FINAIS)**
 
 ```yaml
 Métricas Obrigatórias:
@@ -400,7 +400,7 @@ SLA:
   - Disponibilidade mínima: 99.9%
 ```
 
-### Step 8: ENTREGA 🟩
+### Passo 8: ENTREGA 🟩
 
 ```yaml
 Métricas Obrigatórias:
@@ -452,20 +452,20 @@ SLA:
 
 ```yaml
 Requisitos Mínimos:
-  - Implementação dos 8-Steps obrigatórios
-  - Quality gates básicos em Steps 3, 7, 8
-  - Logging estruturado em todos os steps
-  - Tratamento de erro em steps críticos
+  - Implementação dos 8 passos do Octógono obrigatórios
+  - Quality gates básicos nos Passos 3, 7, 8
+  - Logging estruturado em todos os passos
+  - Tratamento de erro em passos críticos
   - Métricas de latência e taxa de erro
 
 Métricas Essenciais:
-  - Latência média por step: < 1s
+  - Latência média por passo: < 1s
   - Taxa de erro geral: < 10%
   - Disponibilidade: > 99%
   - Cobertura de logs: 100%
 
 Validação Bronze:
-  - [ ] Todos os 8 steps implementados
+  - [ ] Todos os 8 passos do Octógono implementados
   - [ ] Quality gates básicos funcionando
   - [ ] Logs estruturados presentes
   - [ ] Error handling configurado
@@ -479,7 +479,7 @@ Certificação: Automática via validador
 ```yaml
 Requisitos (Bronze +):
   - Observabilidade completa (traces, metrics, logs)
-  - Quality gates avançados em todos os steps
+  - Quality gates avançados em todos os passos
   - Alertas configurados para SLA
   - Dashboards de monitoramento
   - Testes automatizados end-to-end
@@ -565,7 +565,7 @@ class QualityGatesValidator {
     this.metrics = new MetricsCollector();
   }
 
-  // Validação Step 1: RECEBE
+  // Validação Passo 1: RECEBE
   async validateStep1(data) {
     const startTime = Date.now();
     const checks = {
@@ -580,7 +580,7 @@ class QualityGatesValidator {
     return this.generateStepResult("1.REC", checks, startTime);
   }
 
-  // Validação Step 2: RASTREIA
+  // Validação Passo 2: RASTREIA
   async validateStep2(data) {
     const startTime = Date.now();
     const checks = {
@@ -595,7 +595,7 @@ class QualityGatesValidator {
     return this.generateStepResult("2.RAS", checks, startTime);
   }
 
-  // Validação Step 3: VALIDA
+  // Validação Passo 3: VALIDA
   async validateStep3(data) {
     const startTime = Date.now();
     const checks = {
@@ -610,7 +610,7 @@ class QualityGatesValidator {
     return this.generateStepResult("3.VAL", checks, startTime);
   }
 
-  // Validação Step 4: ROTEIA
+  // Validação Passo 4: ROTEIA
   async validateStep4(data) {
     const startTime = Date.now();
     const checks = {
@@ -625,7 +625,7 @@ class QualityGatesValidator {
     return this.generateStepResult("4.ROT", checks, startTime);
   }
 
-  // Validação Step 5: PROCESSA
+  // Validação Passo 5: PROCESSA
   async validateStep5(data) {
     const startTime = Date.now();
     const checks = {
@@ -640,7 +640,7 @@ class QualityGatesValidator {
     return this.generateStepResult("5.PRO", checks, startTime);
   }
 
-  // Validação Step 6: AGREGA
+  // Validação Passo 6: AGREGA
   async validateStep6(data) {
     const startTime = Date.now();
     const checks = {
@@ -655,7 +655,7 @@ class QualityGatesValidator {
     return this.generateStepResult("6.AGR", checks, startTime);
   }
 
-  // Validação Step 7: CONFIRMA (CRITICAL)
+  // Validação Passo 7: CONFIRMA (CRITICAL)
   async validateStep7(data) {
     const startTime = Date.now();
     const checks = {
@@ -677,7 +677,7 @@ class QualityGatesValidator {
 
     const result = this.generateStepResult("7.CON", checks, startTime);
 
-    // Step 7 é crítico - falha bloqueia entrega
+    // Passo 7 é crítico - falha bloqueia entrega
     if (!result.passed) {
       await this.blockDeliveryAndAlert(data, result);
     }
@@ -685,7 +685,7 @@ class QualityGatesValidator {
     return result;
   }
 
-  // Validação Step 8: ENTREGA
+  // Validação Passo 8: ENTREGA
   async validateStep8(data) {
     const startTime = Date.now();
     const checks = {
@@ -812,7 +812,7 @@ if (!step7Result.passed) {
 class ComplianceValidator {
   async validateBronzeCompliance(workflow) {
     const checks = {
-      eight_steps_implemented: this.validateEightStepsPresent(workflow),
+      octogono_steps_implemented: this.validateOctogonoStepsPresent(workflow),
       basic_quality_gates: this.validateBasicQualityGates(workflow),
       structured_logging: this.validateStructuredLogging(workflow),
       error_handling: this.validateErrorHandling(workflow),
@@ -915,8 +915,8 @@ Panels:
      - Alert: Any failure triggers notification
 
 Alerting Rules:
-  - Step 7 Quality Gate Failure:
-      condition: quality_gate_step7_failed > 0
+  - Passo 7 Quality Gate Failure:
+      condition: quality_gate_passo7_failed > 0
       severity: Critical
       notification: Slack + PagerDuty
 
@@ -934,15 +934,15 @@ Alerting Rules:
 ### Queries de Observabilidade
 
 ```sql
--- Quality Score por Step (PostgreSQL)
+-- Quality Score por Passo (PostgreSQL)
 SELECT
-  step_name,
+  passo_name,
   AVG(quality_score) as avg_quality_score,
   COUNT(*) as total_executions,
   COUNT(CASE WHEN quality_score < 0.8 THEN 1 END) as low_quality_executions
 FROM quality_metrics
 WHERE timestamp >= NOW() - INTERVAL '24 hours'
-GROUP BY step_name
+GROUP BY passo_name
 ORDER BY avg_quality_score ASC;
 
 -- Top Quality Gate Failures
@@ -979,9 +979,9 @@ ORDER BY violation_count DESC;
 ### Alertas Proativos
 
 ```yaml
-Alert: "Step7_Quality_Gate_Critical_Failure"
+Alert: "Passo7_Quality_Gate_Critical_Failure"
 Condition: |
-  sum(rate(quality_gate_failures{step="7.CON",severity="critical"}[5m])) > 0
+  sum(rate(quality_gate_failures{passo="7.CON",severity="critical"}[5m])) > 0
 For: 1m
 Severity: Critical
 Notifications:
@@ -989,7 +989,7 @@ Notifications:
   - Slack: #quality-alerts
   - Email: sre-team@company.com
 Message: |
-  🚨 CRITICAL: Step 7 Quality Gate failure detected
+  🚨 CRITICAL: Passo 7 Quality Gate failure detected
   Workflow: {{ $labels.workflow_id }}
   Gate: {{ $labels.gate_name }}
   Trace ID: {{ $labels.trace_id }}
@@ -1010,17 +1010,17 @@ Message: |
 
   Review recent deployments and system performance.
 
-Alert: "SLA_Breach_Multiple_Steps"
+Alert: "SLA_Breach_Multiple_Passos"
 Condition: |
-  count(step_latency_p95 > step_sla_threshold) > 2
+  count(passo_latency_p95 > passo_sla_threshold) > 2
 For: 5m
 Severity: High
 Notifications:
   - Slack: #performance-alerts
   - Email: performance-team@company.com
 Message: |
-  🔴 Multiple steps breaching SLA
-  Affected steps: {{ range $label, $value := $labels }}{{ $label }} {{ end }}
+  🔴 Multiple passos breaching SLA
+  Affected passos: {{ range $label, $value := $labels }}{{ $label }} {{ end }}
 
   System performance degradation detected.
 ```
@@ -1038,51 +1038,51 @@ Message: |
 - [ ] Estrutura de banco para métricas criada
 - [ ] Logger estruturado configurado
 - [ ] Collector de métricas implementado
-- [ ] Validador básico dos 8-steps funcionando
+- [ ] Validador básico dos 8 passos do Octógono funcionando
 
-### Step 1: RECEBE
+### Passo 1: RECEBE
 - [ ] Validação de latência (< 500ms)
 - [ ] Check de taxa de dados válidos (> 95%)
 - [ ] Monitoramento de throughput
 - [ ] Health check de webhooks
 - [ ] Validação de schema inicial
 
-### Step 2: RASTREIA
+### Passo 2: RASTREIA
 - [ ] Validação de tempo de geração de IDs (< 50ms)
 - [ ] Check de completude de metadados (100%)
 - [ ] Verificação de unicidade de trace_id
 - [ ] Validação de formato UUID
 - [ ] Persistência de telemetria
 
-### Step 3: VALIDA
+### Passo 3: VALIDA
 - [ ] Validação de tempo de processamento (< 200ms)
 - [ ] Taxa de aprovação monitorada (> 80%)
 - [ ] Cobertura de regras verificada (100%)
 - [ ] Schema validation implementada
 - [ ] Sanitização de dados funcionando
 
-### Step 4: ROTEIA
+### Passo 4: ROTEIA
 - [ ] Tempo de decisão monitorado (< 150ms)
 - [ ] Precisão de roteamento verificada (> 90%)
 - [ ] Distribuição de carga balanceada
 - [ ] Check de disponibilidade de agentes
 - [ ] Validação de regras de roteamento
 
-### Step 5: PROCESSA
+### Passo 5: PROCESSA
 - [ ] Timeout de processamento (< 5s típico, < 30s máximo)
 - [ ] Qualidade de resposta IA (> 0.8)
 - [ ] Taxa de sucesso de APIs (> 95%)
 - [ ] Validação de integridade de dados
 - [ ] Circuit breaker para APIs externas
 
-### Step 6: AGREGA
+### Passo 6: AGREGA
 - [ ] Tempo de agregação monitorado (< 300ms)
 - [ ] Completude de dados verificada (> 95%)
 - [ ] Consistência de merge validada (> 98%)
 - [ ] Detecção de conflitos implementada
 - [ ] Performance de agregação otimizada
 
-### Step 7: CONFIRMA (CRÍTICO)
+### Passo 7: CONFIRMA (CRÍTICO)
 - [ ] Tempo de quality gates (< 400ms)
 - [ ] Score de qualidade geral (> 0.85)
 - [ ] Conformidade compliance (100%)
@@ -1093,7 +1093,7 @@ Message: |
 - [ ] Gate de dados pessoais
 - [ ] Bloqueio automático em falha
 
-### Step 8: ENTREGA
+### Passo 8: ENTREGA
 - [ ] Tempo de entrega monitorado (< 1s)
 - [ ] Taxa de sucesso verificada (> 98%)
 - [ ] Confirmação de entrega implementada
@@ -1101,7 +1101,7 @@ Message: |
 - [ ] Fechamento de contexto funcionando
 
 ### Observabilidade
-- [ ] Logs estruturados em todos os steps
+- [ ] Logs estruturados em todos os passos
 - [ ] Métricas coletadas e armazenadas
 - [ ] Dashboard básico configurado
 - [ ] Alertas críticos funcionando
@@ -1374,11 +1374,11 @@ Gold Level:
 
 ## 🎯 CONCLUSÃO
 
-Esta especificação estabelece o framework definitivo para **Quality Gates** no Protocolo ZION, transformando o Step 7 (CONFIRMA) de um conceito vago em um **sistema robusto e mensurável** de garantia de qualidade.
+Esta especificação estabelece o framework definitivo para **Quality Gates** no Zion Protocol, transformando o Passo 7 (CONFIRMA) de um conceito vago em um **sistema robusto e mensurável** de garantia de qualidade.
 
 ### ✅ Objetivos Alcançados
 
-1. **Métricas Objetivas**: Thresholds numéricos para todos os 8 steps
+1. **Métricas Objetivas**: Thresholds numéricos para todos os 8 passos do Octógono
 2. **Validação Automática**: Scripts e classes para verificação automatizada
 3. **Compliance Estruturado**: 3 níveis progressivos (Bronze/Silver/Gold)
 4. **Observabilidade Completa**: Dashboards, alertas e monitoramento

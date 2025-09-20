@@ -43,43 +43,112 @@ Este protocolo abrange:
 ### 2.1 Visão Geral
 
 ```mermaid
-graph TD
-    subgraph Interface["CAMADA DE INTERFACE"]
-        A[WhatsApp<br/>Telegram<br/>WebChat<br/>Discord<br/>Email<br/>Voice]
+graph TB
+    %% Configuração de estilos
+    classDef interfaceClass fill:#FF9800,stroke:#E65100,color:#FFF,stroke-width:3px
+    classDef normClass fill:#FFEB3B,stroke:#F9A825,color:#000,stroke-width:2px
+    classDef processClass fill:#FFEB3B,stroke:#F9A825,color:#000,stroke-width:4px
+    classDef aiClass fill:#2196F3,stroke:#1565C0,color:#FFF,stroke-width:3px
+    classDef integClass fill:#F44336,stroke:#C62828,color:#FFF,stroke-width:2px
+    classDef obsClass fill:#9E9E9E,stroke:#616161,color:#FFF,stroke-width:2px
+
+    %% Camada de Interface - Entrada
+    subgraph " "
+        direction TB
+        Interface["🌐 INTERFACE DE ENTRADA"]
+        WA["💬 WhatsApp"]
+        TG["📱 Telegram"]
+        WEB["🌐 WebChat"]
+        DC["💬 Discord"]
+        EM["📧 Email"]
+        VOZ["🎙️ Voice"]
     end
 
-    subgraph Normalizacao["CAMADA DE NORMALIZAÇÃO"]
-        B[Factory Pattern<br/>Adaptadores<br/>Validadores]
+    %% Camada de Normalização
+    subgraph "  "
+        direction TB
+        Norm["⚙️ NORMALIZAÇÃO"]
+        Factory["🏭 Factory Pattern"]
+        Adapt["🔌 Adaptadores"]
+        Valid["✅ Validadores"]
     end
 
-    subgraph Processamento["CAMADA DE PROCESSAMENTO"]
-        C[Octógono Zion (8 Steps)<br/>Aplicado em TODOS os Fluxos<br/>Roteamento Inteligente]
+    %% Núcleo - Octogono Zion
+    subgraph "   "
+        direction TB
+        Octo["🔷 OCTOGONO ZION<br/>━━━━━━━━━━━━━━━<br/>8 Steps Obrigatórios"]
+        R["1️⃣ RECEBE 🟠"]
+        T["2️⃣ RASTREIA ⬜"]
+        V["3️⃣ VALIDA 🟢"]
+        RO["4️⃣ ROTEIA 🔵"]
+        P["5️⃣ PROCESSA 🟡"]
+        AG["6️⃣ AGREGA ⬜"]
+        C["7️⃣ CONFIRMA 🟢"]
+        E["8️⃣ ENTREGA 🟠"]
     end
 
-    subgraph Inteligencia["CAMADA DE INTELIGÊNCIA"]
-        D[LLMs<br/>NLU<br/>Contexto<br/>Memória<br/>Decisão]
+    %% Camada de Inteligência
+    subgraph "    "
+        direction TB
+        AI["🧠 INTELIGÊNCIA ARTIFICIAL"]
+        LLM["🤖 LLMs (GPT/Claude/Llama)"]
+        NLU["💭 NLU & Compreensão"]
+        CTX["📚 Contexto & Memória"]
+        DEC["⚡ Motor de Decisão"]
     end
 
-    subgraph Integracao["CAMADA DE INTEGRAÇÃO"]
-        E[APIs<br/>Databases<br/>CRMs<br/>ERPs<br/>Legacy Systems]
+    %% Camada de Integração
+    subgraph "     "
+        direction TB
+        Integ["🔗 INTEGRAÇÕES"]
+        API["🌐 APIs REST/GraphQL"]
+        DB["💾 Databases"]
+        CRM["📊 CRMs"]
+        ERP["🏢 ERPs"]
+        LEG["🏛️ Legacy Systems"]
     end
 
-    subgraph Observabilidade["CAMADA DE OBSERVABILIDADE"]
-        F[Logs<br/>Métricas<br/>Traces<br/>Alertas<br/>Analytics]
+    %% Camada de Observabilidade
+    subgraph "      "
+        direction TB
+        Obs["📊 OBSERVABILIDADE"]
+        LOG["📝 Logs Estruturados"]
+        MET["📈 Métricas"]
+        TRC["🔍 Traces"]
+        ALT["🚨 Alertas"]
+        ANL["📊 Analytics"]
     end
 
-    %% Fluxo principal
-    A --> B
-    B --> C
-    C --> D
-    D --> C
-    C --> E
+    %% Conexões principais
+    Interface ==> Norm
+    WA & TG & WEB & DC & EM & VOZ -.-> Interface
 
-    %% Observabilidade monitora todas as camadas
-    B -.-> F
-    C -.-> F
-    D -.-> F
-    E -.-> F
+    Norm ==> Octo
+    Factory & Adapt & Valid -.-> Norm
+
+    Octo ==> AI
+    R & T & V & RO & P & AG & C & E -.-> Octo
+
+    AI ==> Octo
+    LLM & NLU & CTX & DEC -.-> AI
+
+    Octo ==> Integ
+    API & DB & CRM & ERP & LEG -.-> Integ
+
+    %% Observabilidade monitora tudo
+    Norm -.->|monitora| Obs
+    Octo -.->|monitora| Obs
+    AI -.->|monitora| Obs
+    Integ -.->|monitora| Obs
+    LOG & MET & TRC & ALT & ANL -.-> Obs
+
+    %% Aplicar estilos
+    class Interface,WA,TG,WEB,DC,EM,VOZ interfaceClass
+    class Norm,Factory,Adapt,Valid normClass
+    class Octo,R,T,V,RO,P,AG,C,E processClass
+    class AI,LLM,NLU,CTX,DEC aiClass
+    class Integ,API,DB,CRM,ERP,LEG integClass
+    class Obs,LOG,MET,TRC,ALT,ANL obsClass
 ```
 
 ### 2.2 Componentes Principais
@@ -118,16 +187,23 @@ Mantém:
 - Recebe dados de entrada (Workflow/Webhook/RabbitMQ/Evaluations)
 - Identifica origem e tipo de mensagem
 - Prepara contexto inicial
-- **Cor no n8n**: Verde 🟩
+- **Cor no n8n**: Laranja 🟠 (color: 2)
+- **Prefixo**: `A:` (quando chama outra camada)
 
 #### Step 2: RASTREIA
 - Gera IDs únicos (trace_id, correlation_id, session_id)
 - Captura timestamp e metadados
 - Inicia telemetria e observabilidade
 - Registra evento de entrada
-- **Cor no n8n**: Amarelo 🟨
+- **Cor no n8n**: Cinza ⬜ (color: 7)
+- **Prefixo**: `RAS:` (operação local)
 
 #### Step 3: VALIDA
+- Valida estrutura e formato dos dados
+- Verifica permissões e segurança
+- Aplica regras de negócio
+- **Cor no n8n**: Verde 🟢 (color: 4)
+- **Prefixo**: `VAL:` (operação local)
 - Valida estrutura e formato dos dados
 - Verifica permissões e autorizações
 - Aplica filtros de segurança e sanitização
@@ -139,35 +215,40 @@ Mantém:
 - Define estratégia de processamento
 - Seleciona agente/skill/workflow apropriado
 - Determina prioridade e SLA
-- **Cor no n8n**: Roxo 🟪
+- **Cor no n8n**: Azul 🔵 (color: 5)
+- **Prefixo**: `ROT:` (operação local)
 
 #### Step 5: PROCESSA
 - Executa lógica principal de negócio
 - Processa com LLM/IA quando necessário
 - Acessa integrações e APIs externas
 - Transforma e enriquece dados
-- **Cor no n8n**: Azul 🟦
+- **Cor no n8n**: Amarelo 🟡 (color: 3)
+- **Prefixos**: `B:` (Normalização), `C:` (Processamento), `E:` (Integração)
 
 #### Step 6: AGREGA
 - Consolida resultados de múltiplas fontes
 - Combina respostas de diferentes processamentos
 - Monta payload de resposta completo
 - Adiciona metadados e contexto
-- **Cor no n8n**: Amarelo 🟨
+- **Cor no n8n**: Cinza ⬜ (color: 7)
+- **Prefixos**: `AGG:` (local) ou `E:AGG:` (camada E)
 
 #### Step 7: CONFIRMA
 - Executa quality gates finais
 - Valida resposta contra políticas
 - Verifica compliance e governança
 - Aplica filtros de conteúdo
-- **Cor no n8n**: Laranja 🟧
+- **Cor no n8n**: Verde 🟢 (color: 4)
+- **Prefixo**: `VAL:` (validação final)
 
 #### Step 8: ENTREGA
 - Formata resposta final
 - Atualiza estado e contexto
 - Envia ao destino (canal/sistema)
 - Confirma entrega e fecha ciclo
-- **Cor no n8n**: Verde 🟩
+- **Cor no n8n**: Laranja 🟠 (color: 2)
+- **Prefixo**: `C:` (quando executa workflow)
 
 ### 3.2 Estados do Agente
 
@@ -207,15 +288,38 @@ stateDiagram-v2
 
 ## 5. Implementação
 
-### 5.1 Estrutura de Projeto
+### 5.1 Nomenclatura Padrão
+
+#### Nodes COM Letra (executeWorkflow entre camadas)
+```javascript
+"A:Recebe dados conexao"        // Interface
+"B:NOR:Conexao > sistema"       // Normalização
+"C:CMP:Executa motor"           // Processamento
+"D:LLM:Processar prompt"        // Inteligência
+"E:CNV:Converte midia"          // Integração
+"F:LOG:Registrar evento"        // Observabilidade
+```
+
+#### Nodes SEM Letra (operação local)
+```javascript
+"VAL:ParametrosValidos"         // Validação
+"ROT:SelecionaEstrategia"       // Roteamento
+"RAS:Execução tratador"         // Rastreamento
+"AGG:UnificaMidia"              // Agregação
+"ERR:Parametros"                // Erro
+```
+
+### 5.2 Estrutura de Projeto
 
 ```
 projeto-zion/
 ├── workflows/
-│   ├── 1-interface/       # Webhooks e triggers
-│   ├── 2-factories/       # Normalizadores
-│   ├── 3-execution/       # Lógica principal
-│   ├── 4-integrations/    # Conectores
+│   ├── (A) Interface/      # Entrada de dados, webhooks
+│   ├── (B) Normalizacao/   # Transformações, adaptadores
+│   ├── (C) Processamento/  # Lógica principal
+│   ├── (D) Inteligencia/   # IA, LLMs
+│   ├── (E) Integracao/     # APIs externas, bancos
+│   ├── (F) Observabilidade/# Logs, métricas
 │   └── 5-utilities/       # Helpers
 ├── templates/
 │   ├── agent-basic/       # Template básico

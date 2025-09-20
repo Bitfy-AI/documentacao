@@ -165,10 +165,10 @@ module.exports = Logger;
 
 ## 🏗️ FASE 1: FUNDAMENTOS (Tasks 006-015)
 
-### TASK 006: Implementar 8-Steps Constants
+### TASK 006: Implementar Constantes do Octógono
 
 #### CONTEXTO PARA O AGENTE
-Você precisa criar as constantes imutáveis dos 8 steps do Protocolo ZION. Estes são os passos obrigatórios que todo workflow deve seguir.
+Você precisa criar as constantes imutáveis dos 8 passos do Octógono Zion. Estes são os passos obrigatórios que todo workflow deve seguir.
 
 #### ARQUIVO A CRIAR
 `protocolo/nomenclatura/constants/steps.js`
@@ -177,12 +177,12 @@ Você precisa criar as constantes imutáveis dos 8 steps do Protocolo ZION. Este
 O arquivo deve conter:
 ```javascript
 /**
- * 8-Steps obrigatórios do Protocolo ZION
+ * 8 passos do Octógono Zion
  * ESTES VALORES SÃO IMUTÁVEIS - NÃO ALTERAR!
  */
 
 const ZION_STEPS = Object.freeze({
-  STEP_1: Object.freeze({
+  PASSO_1: Object.freeze({
     number: 1,
     name: 'RECEBE',
     code: 'REC',
@@ -190,7 +190,7 @@ const ZION_STEPS = Object.freeze({
     emoji: '🟩',
     description: 'Recebe dados de entrada de múltiplas fontes'
   }),
-  STEP_2: Object.freeze({
+  PASSO_2: Object.freeze({
     number: 2,
     name: 'RASTREIA',
     code: 'RAS',
@@ -198,7 +198,7 @@ const ZION_STEPS = Object.freeze({
     emoji: '🟨',
     description: 'Gera IDs únicos e telemetria'
   }),
-  STEP_3: Object.freeze({
+  PASSO_3: Object.freeze({
     number: 3,
     name: 'VALIDA',
     code: 'VAL',
@@ -206,7 +206,7 @@ const ZION_STEPS = Object.freeze({
     emoji: '🟧',
     description: 'Valida dados e segurança'
   }),
-  STEP_4: Object.freeze({
+  PASSO_4: Object.freeze({
     number: 4,
     name: 'ROTEIA',
     code: 'ROT',
@@ -214,7 +214,7 @@ const ZION_STEPS = Object.freeze({
     emoji: '🟪',
     description: 'Define estratégia de processamento'
   }),
-  STEP_5: Object.freeze({
+  PASSO_5: Object.freeze({
     number: 5,
     name: 'PROCESSA',
     code: 'PRO',
@@ -222,7 +222,7 @@ const ZION_STEPS = Object.freeze({
     emoji: '🟦',
     description: 'Executa lógica principal com IA'
   }),
-  STEP_6: Object.freeze({
+  PASSO_6: Object.freeze({
     number: 6,
     name: 'AGREGA',
     code: 'AGR',
@@ -230,7 +230,7 @@ const ZION_STEPS = Object.freeze({
     emoji: '🟨',
     description: 'Consolida múltiplos resultados'
   }),
-  STEP_7: Object.freeze({
+  PASSO_7: Object.freeze({
     number: 7,
     name: 'CONFIRMA',
     code: 'CON',
@@ -238,7 +238,7 @@ const ZION_STEPS = Object.freeze({
     emoji: '🟧',
     description: 'Quality gates e compliance'
   }),
-  STEP_8: Object.freeze({
+  PASSO_8: Object.freeze({
     number: 8,
     name: 'ENTREGA',
     code: 'ENT',
@@ -261,7 +261,7 @@ const getAllSteps = () => {
   return Object.values(ZION_STEPS).sort((a, b) => a.number - b.number);
 };
 
-const validateStepName = (name) => {
+const validatePassoName = (name) => {
   return Object.values(ZION_STEPS).some(step => step.name === name);
 };
 
@@ -270,12 +270,12 @@ module.exports = {
   getStepByNumber,
   getStepByCode,
   getAllSteps,
-  validateStepName
+  validatePassoName
 };
 ```
 
 #### FUNCIONALIDADES REQUERIDAS
-- Objeto ZION_STEPS com 8 steps completos
+- Objeto ZION_STEPS com 8 passos completos
 - Cada step com: number, name, code, color, emoji, description
 - Todos os objetos devem ser congelados (Object.freeze)
 - Funções helper para buscar steps por número ou código
@@ -284,7 +284,7 @@ module.exports = {
 
 #### CRITÉRIOS DE SUCESSO
 - Constantes totalmente imutáveis
-- 8 steps com todas as propriedades
+- 8 passos com todas as propriedades
 - Helper functions funcionais
 
 #### EXEMPLO DE USO ESPERADO
@@ -651,9 +651,9 @@ Validador para nomes de steps seguindo padrão [NUM].[CODE]:[ACTION].
 #### PASSOS EXATOS
 1. Criar validators/stepName.js:
 ```javascript
-const { validateStepName, getStepByNumber } = require('../constants/steps');
+const { validatePassoName, getPassoByNumber } = require('../constants/steps');
 
-class StepNameValidator {
+class PassoNameValidator {
   constructor() {
     // Pattern: [NUM].[CODE]:[ACTION]
     this.pattern = /^(\d)\.([A-Z]{3}):([A-Za-z_]+)$/;
@@ -711,11 +711,11 @@ class StepNameValidator {
   }
 }
 
-module.exports = StepNameValidator;
+module.exports = PassoNameValidator;
 ```
 
 #### VALIDAÇÃO
-- [ ] `new StepNameValidator().validate('1.REC:RecebeMensagem').valid` retorna true
+- [ ] `new PassoNameValidator().validate('1.REC:RecebeMensagem').valid` retorna true
 - [ ] Código incorreto gera erro
 - [ ] Sugestões de correção funcionam
 
@@ -945,7 +945,7 @@ module.exports = LegacyConverter;
 ### TASK 041: Criar Template Básico n8n
 
 #### CONTEXTO RÁPIDO
-Template JSON para workflow n8n com 8 steps.
+Template JSON para workflow n8n com 8 passos do Octógono.
 
 #### ARQUIVOS ENVOLVIDOS
 - Criar: `protocolo/nomenclatura/templates/basic-workflow.json`
@@ -1080,7 +1080,7 @@ Testes automatizados para validadores e geradores.
 1. Criar tests/validators.test.js:
 ```javascript
 const WorkflowIdValidator = require('../validators/workflowId');
-const StepNameValidator = require('../validators/stepName');
+const PassoNameValidator = require('../validators/passoName');
 
 describe('WorkflowIdValidator', () => {
   let validator;
@@ -1112,11 +1112,11 @@ describe('WorkflowIdValidator', () => {
   });
 });
 
-describe('StepNameValidator', () => {
+describe('PassoNameValidator', () => {
   let validator;
 
   beforeEach(() => {
-    validator = new StepNameValidator();
+    validator = new PassoNameValidator();
   });
 
   test('validates correct format', () => {
